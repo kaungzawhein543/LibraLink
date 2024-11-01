@@ -5,23 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="SearchHistory")
-public class SearchHistory {
+@Table(name="reviews")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="content")
-    private String content;
-    @Column(name="search_at")
-    private LocalDateTime search_at;
-    @Column(name="status")
-    private boolean status;
+    @Column(name="review_content")
+    private String review_content;
+    @Column(name="rate")
+    private int rate;
+    @Column(name="rated_at")
+    private LocalDateTime rated_at;
+
 }

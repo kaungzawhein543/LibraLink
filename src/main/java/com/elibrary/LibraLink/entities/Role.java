@@ -5,23 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="SearchHistory")
-public class SearchHistory {
+@Table(name="roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="content")
-    private String content;
-    @Column(name="search_at")
-    private LocalDateTime search_at;
+    @Column(name="role_name")
+    private String role_name;
     @Column(name="status")
-    private boolean status;
+    private int status;
 }

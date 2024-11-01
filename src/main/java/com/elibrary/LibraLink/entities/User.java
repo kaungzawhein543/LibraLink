@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -15,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="users")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,7 +33,7 @@ public class Users {
     @Column(name="status")
     private boolean status;
     @Column(name="date_of_birth")
-    private Date DOB;
+    private LocalDate DOB;
     @Column(name="profile_photo_path")
     private String profile_photo_path;
     @Column(name="notification_device_id")
@@ -42,6 +44,15 @@ public class Users {
     private String oauth_provider;
     @Column(name="oauth_id")
     private String oauth_id;
+    @Column(name="created_at")
+    private LocalDateTime created_at;
     @Column(name="theme")
     private String theme;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToMany(mappedBy = "user_id", cascade = CascadeType.MERGE)
+    private List<LoginHistory> login_histories;
 }

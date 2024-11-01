@@ -5,23 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="SearchHistory")
-public class SearchHistory {
+@Table(name="roles_has_permissions")
+public class roles_has_permissions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
-    @Column(name="content")
-    private String content;
-    @Column(name="search_at")
-    private LocalDateTime search_at;
-    @Column(name="status")
-    private boolean status;
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private Role role_id;
+
+    @ManyToOne
+    @JoinColumn(name="permission_id")
+    private Permission permission_id;
+
+    private LocalDateTime createdDate;
 }

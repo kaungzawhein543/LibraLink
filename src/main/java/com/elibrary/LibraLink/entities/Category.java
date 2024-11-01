@@ -12,16 +12,14 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="SearchHistory")
-public class SearchHistory {
+@Table(name="category")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="content")
-    private String content;
-    @Column(name="search_at")
-    private LocalDateTime search_at;
-    @Column(name="status")
-    private boolean status;
+    @Column(name="name")
+    private String name;
+    @Column(name="created_at")
+    private LocalDateTime created_at;
 }
