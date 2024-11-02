@@ -29,8 +29,8 @@ public class Book {
     private LocalDateTime created_at  = LocalDateTime.now();
     @Column(name="pages")
     private int pages;
-    @Column(name="preview_photo")
-    private String preview_photo;
+    @Column(name="preview_photo_path")
+    private String preview_photo_path;
     @Column(name="book_path")
     private String book_path;
     @Column(name="social_share_count")
