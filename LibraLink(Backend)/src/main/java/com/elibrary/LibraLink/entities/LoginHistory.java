@@ -21,10 +21,10 @@ public class LoginHistory {
     @Column(name="device_name")
     private String device_name;
     @Column(name="login_at")
-    private LocalDateTime login_at;
+    private LocalDateTime login_at  = LocalDateTime.now();
     @Column(name="login_fail_count")
     private int  login_fail_count;
-    @Column(name="ip_addresss")
+    @Column(name="ip_address")
     private String ip_address;
     @Column(name="login_browser")
     private String login_browser;

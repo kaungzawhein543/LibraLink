@@ -25,5 +25,6 @@ public class roles_has_permissions {
     @JoinColumn(name="permission_id")
     private Permission permission_id;
 
-    private LocalDateTime createdDate;
+    @Column(name="created_at",nullable = false)
+    private LocalDateTime createdDate = LocalDateTime.now();
 }

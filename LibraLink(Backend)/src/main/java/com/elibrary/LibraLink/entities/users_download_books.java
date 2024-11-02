@@ -27,6 +27,6 @@ public class users_download_books {
     @JoinColumn(name="user_id")
     private User user_id;
 
-    @Column(name="download_at")
-    private LocalDateTime download_at;
+    @Column(name="download_at" ,nullable = false)
+    private LocalDateTime download_at = LocalDateTime.now();
 }

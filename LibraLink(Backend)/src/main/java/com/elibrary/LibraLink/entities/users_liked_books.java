@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users_has_read_history")
-public class users_has_read_history {
+@Table(name="users_liked_books")
+public class users_liked_books {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -24,11 +24,8 @@ public class users_has_read_history {
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User user;
+    private User user_id;
 
-    @Column(name="last_read_at")
-    private LocalDateTime last_read_at = LocalDateTime.now();
-
-    @Column(name="last_page_read")
-    private int last_page_read;
+    @Column(name="liked_at")
+    private LocalDateTime liked_at = LocalDateTime.now();
 }

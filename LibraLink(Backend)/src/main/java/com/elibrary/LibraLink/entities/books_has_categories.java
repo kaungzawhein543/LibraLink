@@ -1,18 +1,17 @@
 package com.elibrary.LibraLink.entities;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users_has_read_history")
-public class users_has_read_history {
+@Table(name="books_has_categories")
+public class books_has_categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -23,12 +22,6 @@ public class users_has_read_history {
     private Book book_id;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
-
-    @Column(name="last_read_at")
-    private LocalDateTime last_read_at = LocalDateTime.now();
-
-    @Column(name="last_page_read")
-    private int last_page_read;
+    @JoinColumn(name="category_id")
+    private Category category_id;
 }

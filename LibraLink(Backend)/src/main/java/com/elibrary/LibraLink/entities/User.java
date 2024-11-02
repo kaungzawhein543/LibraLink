@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,38 +22,36 @@ public class User {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @UuidGenerator
     @Column(name="id")
     private UUID id;
     @Column(name="name")
     private String name;
-    @Column(name="email")
+    @Column(name="username",unique = true,nullable = false)
+    private String username;
+    @Column(name="email",unique = true,nullable = false)
     private String email;
-    @Column(name="ph_number")
-    private String ph_number;
     @Column(name="status")
     private boolean status;
-    @Column(name="date_of_birth")
+    @Column(name="date_of_birth",nullable = false)
     private LocalDate DOB;
     @Column(name="profile_photo_path")
     private String profile_photo_path;
     @Column(name="notification_device_id")
     private String notification_device_id;
-    @Column(name="email_noti_permission")
-    private boolean email_noti_permission;
+    @Column(name="email_notification_permission")
+    private boolean email_notification_permission;
     @Column(name="oauth_provider")
     private String oauth_provider;
     @Column(name="oauth_id")
     private String oauth_id;
     @Column(name="created_at")
-    private LocalDateTime created_at;
+    private LocalDateTime created_at = LocalDateTime.now();
     @Column(name="theme")
-    private String theme;
+    private String theme = "light";
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "role_id")
-    private Role role;
+    private Role role_id;
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.MERGE)
-    private List<LoginHistory> login_histories;
 }

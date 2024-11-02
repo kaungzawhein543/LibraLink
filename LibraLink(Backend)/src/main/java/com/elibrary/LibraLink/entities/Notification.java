@@ -17,15 +17,19 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="content")
+    @Column(name="content" ,nullable = false)
     private String content;
     @Column(name="created_at")
-    private LocalDateTime created_at;
+    private LocalDateTime created_at  = LocalDateTime.now();
     @Column(name="status")
     private boolean status;
     @Column(name="icon_name")
     private String icon_name;
     @Column(name="seen_status")
-    private boolean seen_status;
+    private boolean seen_status = false;
+    @Column(name="read_status")
+    private boolean read_status = false;
+    @Column(name="url_link",nullable = false)
+    private String url_link;
 
 }

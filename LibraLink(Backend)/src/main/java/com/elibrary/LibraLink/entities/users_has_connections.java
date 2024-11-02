@@ -11,24 +11,25 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users_has_read_history")
-public class users_has_read_history {
+@Table(name="users_has_connections")
+public class users_has_connections {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="book_id")
-    private Book book_id;
+    @JoinColumn(name="userId_1")
+    private User userId_1;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="userId_2")
+    private User userId_2;
 
-    @Column(name="last_read_at")
-    private LocalDateTime last_read_at = LocalDateTime.now();
+    @Column(name="connected_at")
+    private LocalDateTime connected_at;
 
-    @Column(name="last_page_read")
-    private int last_page_read;
+    @Column(name="blocked_at")
+    private LocalDateTime blocked_at;
 }

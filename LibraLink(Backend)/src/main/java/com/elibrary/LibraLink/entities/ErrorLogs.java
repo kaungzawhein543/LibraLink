@@ -17,16 +17,16 @@ public class ErrorLogs {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="error_message")
+    @Column(name="error_message" ,nullable = false)
     private String error_message;
     @Column(name="error_type")
     private String error_type;
     @Column(name="stack_trace")
     private String error_path;
-    @Column(name="status_code")
+    @Column(name="status_code",nullable = false)
     private String status_code;
     @Column(name="error_happen_at")
-    private LocalDateTime error_happen_at;
+    private LocalDateTime error_happen_at  = LocalDateTime.now();
     @Column(name="additional_info")
     private String additional_info;
 }

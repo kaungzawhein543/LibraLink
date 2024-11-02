@@ -18,10 +18,10 @@ public class SearchHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="content")
+    @Column(name="content",nullable = false)
     private String content;
-    @Column(name="search_at")
-    private LocalDateTime search_at;
+    @Column(name="search_at",nullable = false)
+    private LocalDateTime search_at = LocalDateTime.now();
     @Column(name="status")
     private boolean status;
 }

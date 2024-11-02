@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -19,13 +20,13 @@ import java.util.UUID;
 public class Book {
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @UuidGenerator
     @Column(name="id")
     private UUID id;
     @Column(name="name")
     private String name;
     @Column(name="created_at")
-    private LocalDateTime createed_at;
+    private LocalDateTime created_at  = LocalDateTime.now();
     @Column(name="pages")
     private int pages;
     @Column(name="preview_photo")

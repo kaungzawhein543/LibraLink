@@ -26,5 +26,5 @@ public class users_report_books {
     private User user_id;
 
     @Column(name="reported_at")
-    private LocalDateTime reported_at;
+    private LocalDateTime reported_at = LocalDateTime.now();
 }

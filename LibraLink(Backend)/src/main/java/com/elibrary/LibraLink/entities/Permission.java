@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -15,8 +17,10 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="permission_name")
+    @Column(name="permission_name",unique = true,nullable = false)
     private String permission_name;
     @Column(name="description")
     private String description;
+    @Column(name="created_at")
+    private LocalDateTime created_at = LocalDateTime.now();
 }

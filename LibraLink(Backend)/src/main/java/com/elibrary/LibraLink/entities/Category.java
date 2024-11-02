@@ -18,8 +18,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="name")
+    @Column(name="name",unique = true,nullable = false)
     private String name;
     @Column(name="created_at")
-    private LocalDateTime created_at;
+    private LocalDateTime created_at = LocalDateTime.now();
 }

@@ -19,9 +19,9 @@ public class Review {
     private int id;
     @Column(name="review_content")
     private String review_content;
-    @Column(name="rate")
+    @Column(name="rate",nullable = false)
     private int rate;
     @Column(name="rated_at")
-    private LocalDateTime rated_at;
+    private LocalDateTime rated_at = LocalDateTime.now();
 
 }
