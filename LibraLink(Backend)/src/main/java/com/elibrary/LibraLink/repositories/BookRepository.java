@@ -1,4 +1,12 @@
 package com.elibrary.LibraLink.repositories;
 
-public class BookRepository {
+import com.elibrary.LibraLink.entities.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface BookRepository extends JpaRepository<Book, UUID> {
+
 }
