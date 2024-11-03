@@ -27,6 +27,10 @@ public class ErrorLogs {
     private String status_code;
     @Column(name="error_happen_at")
     private LocalDateTime error_happen_at  = LocalDateTime.now();
+    @Column(name="fix_status ")
+    private boolean fix_status;
+    @Column(name="status ")
+    private boolean status ;
     @Column(name="additional_info")
     private String additional_info;
 }

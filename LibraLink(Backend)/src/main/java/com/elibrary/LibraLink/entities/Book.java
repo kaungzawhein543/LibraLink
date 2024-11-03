@@ -27,6 +27,8 @@ public class Book {
     private String name;
     @Column(name="created_at")
     private LocalDateTime created_at  = LocalDateTime.now();
+    @Column(name="status")
+    private boolean status = true;
     @Column(name="pages")
     private int pages;
     @Column(name="preview_photo_path")

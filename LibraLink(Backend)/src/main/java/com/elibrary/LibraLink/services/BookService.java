@@ -32,7 +32,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    //Update Book By Id
+    //Update Book By ID
     public Book updateBook(Book updatedBook){
         Optional<Book> bookBeforeUpdate = bookRepository.findById(updatedBook.getId());
 
@@ -47,6 +47,29 @@ public class BookService {
             return  bookRepository.save(bookForUpdate);
         }else{
             throw new RuntimeException("Book Not Found with id "+updatedBook.getId());
+        }
+    }
+
+    //Delete Book (soft)
+    public void softDeleteBook(UUID id){
+        Optional<Book> book = bookRepository.findById(id);
+        if(book.isPresent()){
+            Book bookForDle = book.get();
+            bookForDle.setStatus(false);
+
+            bookRepository.save(bookForDle);
+        }else{
+            throw new Error("Book Not Found With Id "+id);
+        }
+    }
+
+    //Delete Book (hard)
+    public void permanentDeleteBook(UUID id){
+        Optional<Book> book = bookRepository.findById(id);
+        if(book.isPresent()){
+            bookRepository.deleteById(id);
+        }else{
+            throw new Error("Book Not Found With Id "+id);
         }
     }
 }

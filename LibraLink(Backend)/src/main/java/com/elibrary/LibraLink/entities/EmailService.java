@@ -32,6 +32,8 @@ public class EmailService {
     private String api_key;
     @Column(name="created_at")
     private LocalDateTime created_at = LocalDateTime.now();
+    @Column(name="status")
+    private boolean status;
     @Column(name="updated_at")
     private LocalDateTime updated_at;
     @Column(name="current_use")
