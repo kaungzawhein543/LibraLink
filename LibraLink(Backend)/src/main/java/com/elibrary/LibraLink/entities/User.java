@@ -21,10 +21,9 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private UUID id;
+    private int id;
     @Column(name="name")
     private String name;
     @Column(name="username",unique = true,nullable = false)
