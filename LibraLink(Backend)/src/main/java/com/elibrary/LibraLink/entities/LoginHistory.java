@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -15,9 +17,10 @@ import java.time.LocalDateTime;
 @Table(name="login_history")
 public class LoginHistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @UuidGenerator
     @Column(name="id")
-    private int id;
+    private UUID id;
     @Column(name="device_name")
     private String device_name;
     @Column(name="login_at")
@@ -26,6 +29,8 @@ public class LoginHistory {
     private int  login_fail_count;
     @Column(name="ip_address")
     private String ip_address;
+    @Column(name="status")
+    private boolean status;
     @Column(name="login_browser")
     private String login_browser;
 

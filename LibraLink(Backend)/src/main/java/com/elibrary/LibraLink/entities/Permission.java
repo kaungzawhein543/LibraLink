@@ -21,6 +21,10 @@ public class Permission {
     private String permission_name;
     @Column(name="description")
     private String description;
+    @Column(name="status")
+    private boolean status;
     @Column(name="created_at")
     private LocalDateTime created_at = LocalDateTime.now();
+    @Column(name="updated_at")
+    private LocalDateTime updated_at;
 }

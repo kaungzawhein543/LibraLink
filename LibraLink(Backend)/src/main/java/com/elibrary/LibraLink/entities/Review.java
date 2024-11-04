@@ -19,9 +19,13 @@ public class Review {
     private int id;
     @Column(name="review_content")
     private String review_content;
+    @Column(name="status")
+    private boolean status;
     @Column(name="rate",nullable = false)
     private int rate;
     @Column(name="rated_at")
     private LocalDateTime rated_at = LocalDateTime.now();
+    @Column(name="updated_at")
+    private LocalDateTime updated_at;
 
 }

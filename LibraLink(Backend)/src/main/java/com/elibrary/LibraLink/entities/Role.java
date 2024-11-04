@@ -20,5 +20,5 @@ public class Role {
     @Column(name="role_name",unique = true,nullable = false)
     private String role_name;
     @Column(name="status")
-    private int status;
+    private boolean status;
 }
