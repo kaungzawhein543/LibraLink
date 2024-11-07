@@ -1,6 +1,8 @@
 package com.elibrary.LibraLink.services;
 
 import com.elibrary.LibraLink.entities.Book;
+import com.elibrary.LibraLink.entities.books_has_categories;
+import com.elibrary.LibraLink.repositories.BookHasCategoriesRepository;
 import com.elibrary.LibraLink.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,11 @@ import java.util.UUID;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final BookHasCategoriesRepository bookHasCategoriesRepository;
 
-    public BookService(BookRepository bookRepository){
+    public BookService(BookRepository bookRepository, BookHasCategoriesRepository bookHasCategoriesRepository){
         this.bookRepository = bookRepository;
+        this.bookHasCategoriesRepository = bookHasCategoriesRepository;
     }
 
     //Create Book
@@ -70,6 +74,14 @@ public class BookService {
             bookRepository.deleteById(id);
         }else{
             throw new Error("Book Not Found With Id "+id);
+        }
+    }
+
+    //Find Books By Category
+    public List<Book> findBooksByCategory(Integer id){
+        List<books_has_categories> bookIdsAndCategoryIDs = bookHasCategoriesRepository.findByCategory_id(id);
+        if(!bookIdsAndCategoryIDs.isEmpty()){
+
         }
     }
 }
