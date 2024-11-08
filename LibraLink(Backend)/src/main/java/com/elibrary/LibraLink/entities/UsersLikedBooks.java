@@ -5,22 +5,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users_has_search_history")
-public class users_has_search_history {
+@Table(name="users_liked_books")
+public class UsersLikedBooks {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="search_history_id")
-    private SearchHistory searchHistoryId;
+    @JoinColumn(name="book_id")
+    private Book book_id;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User user;
+    private User user_id;
+
+    @Column(name="liked_at")
+    private LocalDateTime liked_at = LocalDateTime.now();
 }

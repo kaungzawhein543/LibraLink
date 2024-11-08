@@ -12,9 +12,12 @@ import java.util.UUID;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, UUID> {
-    @Query("SELECT new com.elibrary.LibraLink.dto.BookCategoryDTO(b.id,b.name,b.created_at,b.pages,b.preview_photo_path,b.book_path,b.social_share_count,"+
-    "c.id,c.name) FROM Book b JOIN BookHasCategoryDTO bhc ON b.id = bhc.bookId"+
-    "JOIN Category c ON bhc.category.id =c.id "+
-    "WHERE c.id = :categoryId")
+
+    @Query("SELECT new com.elibrary.LibraLink.dtos.BookCategoryDTO(b.id, b.name, b.created_at, b.status, b.pages, b.preview_photo_path, b.book_path, b.social_share_count, " +
+            "c.id, c.name) FROM Book b " +
+            "JOIN BooksHasCategories bhc ON b.id = bhc.book.id " +   // Refer to `book` instead of `book_id`
+            "JOIN Category c ON bhc.category.id = c.id " +           // Refer to `category` instead of `category_id`
+            "WHERE c.id = :categoryId")
     List<BookCategoryDTO> findBookByCategory(@Param("categoryId") Integer categoryId);
+
 }

@@ -21,7 +21,7 @@ public class Category {
     @Column(name="name",unique = true,nullable = false)
     private String name;
     @Column(name="status")
-    private boolean status;
+    private boolean status = true;
     @Column(name="created_at")
     private LocalDateTime created_at = LocalDateTime.now();
 }

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="roles_has_permissions")
-public class roles_has_permissions {
+public class RolesHasPermissions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

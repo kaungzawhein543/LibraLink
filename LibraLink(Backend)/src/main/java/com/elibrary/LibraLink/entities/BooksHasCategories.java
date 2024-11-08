@@ -1,5 +1,6 @@
 package com.elibrary.LibraLink.entities;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,18 +10,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users_has-notifications")
-public class users_has_notifications {
+@Table(name="books_has_categories")
+public class BooksHasCategories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="notification_id")
-    private Notification notification;
+    @JoinColumn(name="book_id")
+    private Book book;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="category_id")
+    private Category category;
 }

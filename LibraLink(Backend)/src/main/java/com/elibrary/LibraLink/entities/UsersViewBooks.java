@@ -1,6 +1,5 @@
 package com.elibrary.LibraLink.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +11,11 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users_download_books")
-public class users_download_books {
+@Table(name="users_view_books")
+public class UsersViewBooks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name="id")
     private int id;
 
     @ManyToOne
@@ -27,6 +26,6 @@ public class users_download_books {
     @JoinColumn(name="user_id")
     private User user_id;
 
-    @Column(name="download_at" ,nullable = false)
-    private LocalDateTime download_at = LocalDateTime.now();
+    @Column(name="view_at")
+    private LocalDateTime view_at;
 }

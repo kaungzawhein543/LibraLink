@@ -1,7 +1,6 @@
 package com.elibrary.LibraLink.services;
 
 import com.elibrary.LibraLink.entities.Book;
-import com.elibrary.LibraLink.entities.books_has_categories;
 import com.elibrary.LibraLink.repositories.BookHasCategoriesRepository;
 import com.elibrary.LibraLink.repositories.BookRepository;
 import org.springframework.stereotype.Service;
@@ -77,11 +76,11 @@ public class BookService {
         }
     }
 
-    //Find Books By Category
-    public List<Book> findBooksByCategory(Integer id){
-        List<books_has_categories> bookIdsAndCategoryIDs = bookHasCategoriesRepository.findByCategory_id(id);
-        if(!bookIdsAndCategoryIDs.isEmpty()){
-
-        }
-    }
+//    //Find Books By Category
+//    public List<Book> findBooksByCategory(Integer id){
+//        List<books_has_categories> bookIdsAndCategoryIDs = bookHasCategoriesRepository.findByCategory_id(id);
+//        if(!bookIdsAndCategoryIDs.isEmpty()){
+//
+//        }
+//    }
 }

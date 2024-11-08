@@ -4,29 +4,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
-import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users_view_books")
-public class users_view_books {
+@Table(name="users_has-notifications")
+public class UsersHasNotifications {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="book_id")
-    private Book book_id;
+    @JoinColumn(name="notification_id")
+    private Notification notification;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User user_id;
-
-    @Column(name="view_at")
-    private LocalDateTime view_at;
+    private User user;
 }
