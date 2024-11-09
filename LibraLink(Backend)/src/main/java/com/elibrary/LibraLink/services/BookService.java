@@ -1,13 +1,17 @@
 package com.elibrary.LibraLink.services;
 
+import com.elibrary.LibraLink.dtos.BookCategoryDTO;
 import com.elibrary.LibraLink.entities.Book;
+import com.elibrary.LibraLink.entities.BooksHasCategories;
 import com.elibrary.LibraLink.repositories.BookHasCategoriesRepository;
 import com.elibrary.LibraLink.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -76,11 +80,29 @@ public class BookService {
         }
     }
 
-//    //Find Books By Category
-//    public List<Book> findBooksByCategory(Integer id){
-//        List<books_has_categories> bookIdsAndCategoryIDs = bookHasCategoriesRepository.findByCategory_id(id);
-//        if(!bookIdsAndCategoryIDs.isEmpty()){
-//
-//        }
-//    }
+    //Find Books By Category
+    public List<Book> findBooksByCategory(Integer id){
+        List<BooksHasCategories> bookIdsAndCategoryIDs = bookHasCategoriesRepository.findByCategory_id(id);
+        if(!bookIdsAndCategoryIDs.isEmpty()){
+            List<BookCategoryDTO> booksByCategoryDTOS = bookRepository.findBookByCategory(id);
+
+            List<Book> booksByCategory = booksByCategoryDTOS.stream()
+                    .map(dto ->{
+                        Book book = new Book();
+                        book.setId(dto.getBookId());
+                        book.setName(dto.getBookName());
+                        book.setPages(dto.getPages());
+                        book.setStatus(dto.isStatus());
+                        book.setPreview_photo_path(dto.getPreview_photo_path());
+                        book.setBook_path(dto.getBook_path());
+                        book.setSocial_share_count(dto.getSocial_share_count());
+                        book.setCreated_at(dto.getCreated_at());
+                        return book;
+                    })
+                    .collect(Collectors.toList());
+
+            return booksByCategory;
+        }
+        return new ArrayList<>();
+    }
 }

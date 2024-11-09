@@ -20,7 +20,7 @@ public class UsersHasReadHistory {
 
     @ManyToOne
     @JoinColumn(name="book_id")
-    private Book book_id;
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name="user_id")

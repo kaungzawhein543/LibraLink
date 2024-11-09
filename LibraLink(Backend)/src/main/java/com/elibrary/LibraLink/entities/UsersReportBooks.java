@@ -19,11 +19,11 @@ public class UsersReportBooks {
 
     @ManyToOne
     @JoinColumn(name="book_id")
-    private Book book_id;
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User user_id;
+    private User user;
 
     @Column(name="reported_at")
     private LocalDateTime reported_at = LocalDateTime.now();

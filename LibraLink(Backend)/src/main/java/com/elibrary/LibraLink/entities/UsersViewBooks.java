@@ -20,11 +20,11 @@ public class UsersViewBooks {
 
     @ManyToOne
     @JoinColumn(name="book_id")
-    private Book book_id;
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User user_id;
+    private User user;
 
     @Column(name="view_at")
     private LocalDateTime view_at;

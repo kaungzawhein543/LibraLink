@@ -18,7 +18,7 @@ public class UsersHasSearchHistory {
 
     @ManyToOne
     @JoinColumn(name="search_history_id")
-    private SearchHistory searchHistoryId;
+    private SearchHistory searchHistory;
 
     @ManyToOne
     @JoinColumn(name="user_id")

@@ -31,7 +31,6 @@ public class SecurityConfig  {
                         exceptionHandling
                                 .authenticationEntryPoint(customAuthenticationEntryPoint)  // Use custom entry point for unauthorized access
                 );
-
         return http.build();
     }
 }

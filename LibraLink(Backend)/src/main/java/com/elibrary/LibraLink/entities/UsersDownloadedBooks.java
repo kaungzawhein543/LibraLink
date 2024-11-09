@@ -21,11 +21,11 @@ public class UsersDownloadedBooks {
 
     @ManyToOne
     @JoinColumn(name="book_id")
-    private Book book_id;
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User user_id;
+    private User user;
 
     @Column(name="download_at" ,nullable = false)
     private LocalDateTime download_at = LocalDateTime.now();

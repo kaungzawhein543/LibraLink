@@ -21,11 +21,11 @@ public class UsersHasConnections {
 
     @ManyToOne
     @JoinColumn(name="userId_1")
-    private User userId_1;
+    private User user1;
 
     @ManyToOne
     @JoinColumn(name="userId_2")
-    private User userId_2;
+    private User user2;
 
     @Column(name="connected_at")
     private LocalDateTime connected_at;

@@ -36,4 +36,9 @@ public class BookController {
     public ResponseEntity<List<Book>> getAllBooks() {
         return new ResponseEntity<>(bookService.getAllBooks(), HttpStatusCode.valueOf(200));
     }
+
+    @GetMapping("category/{id}")
+    public ResponseEntity<List<Book>> getBooksByCatgory(@PathVariable Integer id){
+        return ResponseEntity.ok(bookService.findBooksByCategory(id));
+    }
 }
