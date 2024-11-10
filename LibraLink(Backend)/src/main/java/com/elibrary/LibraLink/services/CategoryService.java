@@ -40,6 +40,7 @@ public class CategoryService {
         if(originalCategory.isPresent()){
             Category categoryForUpdate = originalCategory.get();
             categoryForUpdate.setName(category.getName());
+            categoryForUpdate.setStatus(originalCategory.get().isStatus());
 
             return categoryRepository.save(categoryForUpdate);
         }else {
