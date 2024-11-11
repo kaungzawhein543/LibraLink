@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
         this.errorLogsService = errorLogsService;
     }
 
+    //RESOURCE NOT FOUND EXCEPTION
     @ExceptionHandler(CustomExceptions.ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(CustomExceptions.ResourceNotFoundException ex, WebRequest request) {
         errorLogsService.addErrorLogs(ex);
@@ -32,6 +33,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    //BAD REQUEST EXCEPTION
     @ExceptionHandler(CustomExceptions.BadRequestException.class)
     public ResponseEntity<ErrorResponse> handleBadRequest(CustomExceptions.BadRequestException ex, WebRequest request) {
         errorLogsService.addErrorLogs(ex);
@@ -44,6 +46,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    //UNAUTHORIZED EXCEPTION (OPTIONAL)
     @ExceptionHandler(CustomExceptions.UnAuthorizedException.class)
     public ResponseEntity<ErrorResponse> handleUnAuthorized(CustomExceptions.UnAuthorizedException ex, WebRequest request) {
         errorLogsService.addErrorLogs(ex);
@@ -56,6 +59,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
+    //FORBIDDEN EXCEPTION
     @ExceptionHandler(CustomExceptions.ForbiddenException.class)
     public ResponseEntity<ErrorResponse> handleForbidden(CustomExceptions.ForbiddenException ex, WebRequest request) {
         errorLogsService.addErrorLogs(ex);
@@ -68,6 +72,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 
+    //HTTP STATUS CODE EXCEPTION (TO CATCH OTHER EXCEPTION SUB CLASS OF HTTP STATUS CODE EXCEPTION)
     @ExceptionHandler(HttpStatusCodeException.class)
     public ResponseEntity<ErrorResponse> handleHttpStatusCodeException(HttpStatusCodeException ex, WebRequest request) {
         errorLogsService.addErrorLogs(ex);
@@ -80,6 +85,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, ex.getStatusCode());
     }
 
+
+    //DATA INTEGRITY VIOLATION EXCEPTION (SQL ERROR)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrityViolation(DataIntegrityViolationException ex, WebRequest request) {
         errorLogsService.addErrorLogs(ex);
@@ -93,5 +100,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    //EXCEPTION (TO CATCH ALL EXCEPTION)
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleAllException(Exception ex, WebRequest request) {
+        errorLogsService.addErrorLogs(ex);
+        System.out.println(request.getDescription(false).replaceFirst("uri=",""));
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Exception occurred: " + ex.getMessage().replaceAll("/",""),
+                request.getDescription(false).replaceFirst("uri=",""),
+                LocalDateTime.now(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }

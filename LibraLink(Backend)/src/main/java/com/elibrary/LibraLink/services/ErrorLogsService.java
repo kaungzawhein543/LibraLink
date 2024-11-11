@@ -24,7 +24,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeoutException;
 
 @Service
-@Slf4j
 public class ErrorLogsService {
 
     private final ErrorLogsRepository errorLogsRepository;
@@ -33,18 +32,18 @@ public class ErrorLogsService {
         this.errorLogsRepository = errorLogsRepository;
     }
 
-    //Create ErrorLogs
+    //CREATE ERROR LOGS
     public ErrorLogs addErrorLogs(Exception exception){
 
         Map<Class<? extends Exception>, String> exceptionStatusCodeMap = Map.ofEntries(
                 Map.entry(IllegalArgumentException.class, "400"),                   // Bad Request
                 Map.entry(CustomExceptions.ResourceNotFoundException.class, "404"), // Not Found
                 Map.entry(NullPointerException.class, "500"),                       // Internal Server Error
-                Map.entry(IllegalStateException.class, "500"),                      // Internal Server Error
+                Map.entry(IllegalStateException.class, "500"),                      // Internal Server Error(I guest)
                 Map.entry(TimeoutException.class, "408"),                           // Request Timeout
-                Map.entry(AuthenticationException.class, "401"),                    // Unauthorized
+                Map.entry(AuthenticationException.class, "401"),                    // Unauthorized(Not Sure.Already Created StandAlone Class For That)
                 Map.entry(AuthorizationDeniedException.class, "403"),               // Forbidden
-                Map.entry(NumberFormatException.class, "400"),                      // Bad Request
+                Map.entry(NumberFormatException.class, "400"),                      // Bad Request(Not Necessary)
                 Map.entry(ConstraintViolationException.class, "400"),               // Bad Request (Validation errors)
                 Map.entry(MethodArgumentNotValidException.class, "400"),            // Bad Request (Validation errors)
                 Map.entry(DataIntegrityViolationException.class, "409"),            // Internal Server Error (Database constraints)
@@ -56,7 +55,6 @@ public class ErrorLogsService {
                 Map.entry(InsufficientAuthenticationException.class, "401")
         );
 
-        System.out.println(exception.getClass());
         String statusCode = exceptionStatusCodeMap.getOrDefault(exception.getClass(),"500");
 
         ErrorLogs errorLogs = new ErrorLogs();
@@ -68,21 +66,20 @@ public class ErrorLogsService {
         errorLogs.setStatus_code(statusCode);
         errorLogs.setStatus(true);
         errorLogs.setAdditional_info("No Additional Info");
-        log.info("It come here");
         return errorLogsRepository.save(errorLogs);
     }
 
-    //Get ErrorLogs By ID
+    //GET ERROR LOGS BY ID
     public Optional<ErrorLogs> findErrorLogsById(Integer id){
         return errorLogsRepository.findById(id);
     }
 
-    //Get All ErrorLogs
+    //GET  ERROR LOGS
     public List<ErrorLogs> findAllErrorLogs(){
         return errorLogsRepository.findAll();
     }
 
-    //Update ErrorLogs By id
+    //UPDATE ERROR LOGS BY ID
     public ErrorLogs updateErrorLogs(ErrorLogs errorLogs){
         Optional<ErrorLogs> originalErrorLogs = errorLogsRepository.findById(errorLogs.getId());
 
@@ -97,7 +94,7 @@ public class ErrorLogsService {
         }
     }
 
-    //Delete ErrorLogs (soft)
+    //DELETE  ERROR LOGS (SOFT)
     public void softDeleteErrorLogs(Integer id){
         Optional<ErrorLogs> errorLogs = errorLogsRepository.findById(id);
         if(errorLogs.isPresent()){
@@ -110,7 +107,7 @@ public class ErrorLogsService {
         }
     }
 
-    //Delete errorLogs (hard)
+    //DELETE ERROR LOGS (HARD)   { I don't know this method need or not just write for ready when it's need }
     public void permanentDeleteErrorLogs(Integer id){
         Optional<ErrorLogs> errorLogs = errorLogsRepository.findById(id);
         if(errorLogs.isPresent()){
@@ -119,7 +116,8 @@ public class ErrorLogsService {
             throw new Error("ErrorLogs Not Found With Id "+id);
         }
     }
-    
+
+    //GET STACK TRACE OF THE ERROR
     private String getStackTrace(Exception exception){
         StringBuilder stackTrace = new StringBuilder();
         for(StackTraceElement element : exception.getStackTrace()){

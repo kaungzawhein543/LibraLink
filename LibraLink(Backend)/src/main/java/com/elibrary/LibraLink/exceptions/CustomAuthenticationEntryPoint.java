@@ -28,7 +28,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        errorLogsService.addErrorLogs(authException);
         ErrorResponse errorResponse = new ErrorResponse(
                 "Unauthorized Access",
                         request.getRequestURI(),
