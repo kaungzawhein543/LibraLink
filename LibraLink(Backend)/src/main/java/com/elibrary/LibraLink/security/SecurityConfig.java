@@ -25,7 +25,7 @@ public class SecurityConfig  {
                 .csrf(csrf -> csrf.disable())  // Disable CSRF for stateless APIs
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .anyRequest().permitAll() // Require authentication for all requests
+                                .anyRequest().authenticated() // Require authentication for all requests
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling

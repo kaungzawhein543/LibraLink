@@ -2,13 +2,29 @@ package com.elibrary.LibraLink.services;
 
 import com.elibrary.LibraLink.entities.Category;
 import com.elibrary.LibraLink.entities.ErrorLogs;
+import com.elibrary.LibraLink.exceptions.CustomExceptions;
 import com.elibrary.LibraLink.repositories.ErrorLogsRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 
+import javax.naming.AuthenticationException;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 
 @Service
+@Slf4j
 public class ErrorLogsService {
 
     private final ErrorLogsRepository errorLogsRepository;
@@ -18,7 +34,41 @@ public class ErrorLogsService {
     }
 
     //Create ErrorLogs
-    public ErrorLogs addErrorLogs(ErrorLogs errorLogs){
+    public ErrorLogs addErrorLogs(Exception exception){
+
+        Map<Class<? extends Exception>, String> exceptionStatusCodeMap = Map.ofEntries(
+                Map.entry(IllegalArgumentException.class, "400"),                   // Bad Request
+                Map.entry(CustomExceptions.ResourceNotFoundException.class, "404"), // Not Found
+                Map.entry(NullPointerException.class, "500"),                       // Internal Server Error
+                Map.entry(IllegalStateException.class, "500"),                      // Internal Server Error
+                Map.entry(TimeoutException.class, "408"),                           // Request Timeout
+                Map.entry(AuthenticationException.class, "401"),                    // Unauthorized
+                Map.entry(AuthorizationDeniedException.class, "403"),               // Forbidden
+                Map.entry(NumberFormatException.class, "400"),                      // Bad Request
+                Map.entry(ConstraintViolationException.class, "400"),               // Bad Request (Validation errors)
+                Map.entry(MethodArgumentNotValidException.class, "400"),            // Bad Request (Validation errors)
+                Map.entry(DataIntegrityViolationException.class, "409"),            // Internal Server Error (Database constraints)
+                Map.entry(SQLException.class, "500"),                               // Internal Server Error (SQL errors)
+                Map.entry(HttpRequestMethodNotSupportedException.class, "405"),     // Method Not Allowed
+                Map.entry(UnsupportedOperationException.class, "501"),              // Not Implemented
+                Map.entry(NoSuchElementException.class, "404"),                     // Not Found (No such element)
+                Map.entry(FileNotFoundException.class, "404"),                      // Not Found (File not found)
+                Map.entry(InsufficientAuthenticationException.class, "401")
+        );
+
+        System.out.println(exception.getClass());
+        String statusCode = exceptionStatusCodeMap.getOrDefault(exception.getClass(),"500");
+
+        ErrorLogs errorLogs = new ErrorLogs();
+        errorLogs.setError_message(exception.getMessage());
+        errorLogs.setError_happen_at(LocalDateTime.now());
+        errorLogs.setError_type(exception.getClass().getName());
+        errorLogs.setError_path(getStackTrace(exception));
+        errorLogs.setFix_status(false);
+        errorLogs.setStatus_code(statusCode);
+        errorLogs.setStatus(true);
+        errorLogs.setAdditional_info("No Additional Info");
+        log.info("It come here");
         return errorLogsRepository.save(errorLogs);
     }
 
@@ -68,5 +118,13 @@ public class ErrorLogsService {
         }else{
             throw new Error("ErrorLogs Not Found With Id "+id);
         }
+    }
+    
+    private String getStackTrace(Exception exception){
+        StringBuilder stackTrace = new StringBuilder();
+        for(StackTraceElement element : exception.getStackTrace()){
+            stackTrace.append(element.toString()).append("/n");
+        }
+        return stackTrace.toString();
     }
 }

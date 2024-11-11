@@ -1,5 +1,6 @@
 package com.elibrary.LibraLink.exceptions;
 
+import com.elibrary.LibraLink.services.ErrorLogsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,13 +19,16 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
 
     private final ObjectMapper objectMapper;
+    private final ErrorLogsService errorLogsService;
 
-    public CustomAuthenticationEntryPoint(ObjectMapper objectMapper) {
+    public CustomAuthenticationEntryPoint(ObjectMapper objectMapper, ErrorLogsService errorLogsService) {
         this.objectMapper = objectMapper;
+        this.errorLogsService = errorLogsService;
     }
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        errorLogsService.addErrorLogs(authException);
         ErrorResponse errorResponse = new ErrorResponse(
                 "Unauthorized Access",
                         request.getRequestURI(),

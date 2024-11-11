@@ -19,7 +19,7 @@ public class EmailService_Service {
     }
 
     //Create EmailService
-    public EmailService addCategory(EmailService emailService){
+    public EmailService addEmailService(EmailService emailService){
         return emailServiceRepository.save(emailService);
     }
 

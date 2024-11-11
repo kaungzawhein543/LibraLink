@@ -21,7 +21,7 @@ public class ErrorLogs {
     private String error_message;
     @Column(name="error_type")
     private String error_type;
-    @Column(name="stack_trace")
+    @Column(name="stack_trace",columnDefinition = "TEXT")
     private String error_path;
     @Column(name="status_code",nullable = false)
     private String status_code;

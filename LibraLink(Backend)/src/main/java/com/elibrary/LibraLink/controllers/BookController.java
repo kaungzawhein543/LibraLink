@@ -1,9 +1,13 @@
 package com.elibrary.LibraLink.controllers;
 
 
+import com.elibrary.LibraLink.dtos.BookDTO;
+import com.elibrary.LibraLink.dtos.CategoryDTO;
 import com.elibrary.LibraLink.entities.Book;
 import com.elibrary.LibraLink.entities.User;
 import com.elibrary.LibraLink.services.BookService;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,15 +15,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/book")
 public class BookController {
 
     private final BookService bookService;
+    private final ModelMapper modelMapper;
 
-    public BookController(BookService bookService){
+    public BookController(BookService bookService, ModelMapper modelMapper){
         this.bookService = bookService;
+        this.modelMapper = modelMapper;
     }
 
     //ADD BOOK
@@ -30,14 +37,21 @@ public class BookController {
 
     //GET BOOK BY ID
     @GetMapping("get/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable UUID id) {
-        return new ResponseEntity<>(bookService.findBookById(id).get(), HttpStatusCode.valueOf(200));
+    public ResponseEntity<BookDTO> getBookById(@PathVariable UUID id) {
+        return bookService.findBookById(id)
+                .map(book -> modelMapper.map(book , BookDTO.class))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     //GET ALL BOOKS
     @GetMapping("getAll")
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return new ResponseEntity<>(bookService.getAllBooks(), HttpStatusCode.valueOf(200));
+    public ResponseEntity<List<BookDTO>> getAllBooks() {
+        List<BookDTO>  bookDTOS = bookService.getAllBooks()
+                .stream()
+                .map(book -> modelMapper.map(book, BookDTO.class))
+                .collect(Collectors.toList());
+        return  ResponseEntity.ok(bookDTOS);
     }
 
     //UPDATE CATEGORY(SOFT)
