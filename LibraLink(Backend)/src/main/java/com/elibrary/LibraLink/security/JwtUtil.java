@@ -2,6 +2,8 @@ package com.elibrary.LibraLink.security;
 
 import com.elibrary.LibraLink.entities.User;
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -33,10 +35,12 @@ public class JwtUtil {
 
     //EXTRACT SUBJECT(USERNAME) FROM TOKEN
     public String extractUsername(String token) {
+
+        String decryptedToken = decryptAccessToken(token);
         return Jwts.parserBuilder()
                 .setSigningKey(jwt_secret_key.getBytes())
                 .build()
-                .parseClaimsJws(token)
+                .parseClaimsJws(decryptedToken)
                 .getBody()
                 .getSubject();
     }
@@ -106,8 +110,20 @@ public class JwtUtil {
         }
     }
 
+    //GET USER DETAIL FROM TOKEN IN COOKIE
+    public User getUserDetailFromToken(String token) {
+        User user = new User();
+        String decryptedToken = decryptAccessToken(token);
+        Key jwtSecretKey = new SecretKeySpec(jwt_secret_key.getBytes(), SignatureAlgorithm.HS512.getJcaName());
 
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(jwtSecretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
 
+        return user;
+    }
 
 
 }
