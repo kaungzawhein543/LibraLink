@@ -55,6 +55,7 @@ public class ErrorLogsService {
                 Map.entry(InsufficientAuthenticationException.class, "401")
         );
 
+        //CHECK STATUS CODE WITH "exceptionStatusCodeMap" METHOD
         String statusCode = exceptionStatusCodeMap.getOrDefault(exception.getClass(),"500");
 
         ErrorLogs errorLogs = new ErrorLogs();
@@ -74,7 +75,7 @@ public class ErrorLogsService {
         return errorLogsRepository.findById(id);
     }
 
-    //GET  ERROR LOGS
+    //GET ERROR LOGS
     public List<ErrorLogs> findAllErrorLogs(){
         return errorLogsRepository.findAll();
     }
@@ -94,7 +95,7 @@ public class ErrorLogsService {
         }
     }
 
-    //DELETE  ERROR LOGS (SOFT)
+    //DELETE ERROR LOGS (SOFT)
     public void softDeleteErrorLogs(Integer id){
         Optional<ErrorLogs> errorLogs = errorLogsRepository.findById(id);
         if(errorLogs.isPresent()){

@@ -34,7 +34,7 @@ public class ErrorLogsController {
                 .map(errorLog -> modelMapper.map(errorLog,ErrorLogsDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(errorLogsDTOS);
-    }
+    }   
 
     //UPDATE ERROR LOG STATUS OR ADDITIONAL INFO
     @PutMapping("/update")
