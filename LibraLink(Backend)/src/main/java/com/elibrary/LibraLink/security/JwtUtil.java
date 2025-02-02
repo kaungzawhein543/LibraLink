@@ -19,7 +19,6 @@ public class JwtUtil {
      final String jwt_access_secret_key = "${spring.jwt.access.token.secret.key}";
      final String jwt_refresh_secret_key = "${spring.jwt.refresh.token.secret.key}";
 
-
      //GENERATE JWT TOKEN
     public String generate_jwt_token(User user) {
         Key jwtSecretKey = new SecretKeySpec(jwt_secret_key.getBytes(), SignatureAlgorithm.HS512.getJcaName());

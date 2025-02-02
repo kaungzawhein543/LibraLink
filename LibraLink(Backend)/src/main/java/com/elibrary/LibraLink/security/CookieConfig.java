@@ -14,10 +14,10 @@ public class CookieConfig {
         Cookie cookie = new Cookie("jwt",token);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
+        cookie.setSecure(true);
         if(rememberMe) {
             cookie.setMaxAge(30 * 24 * 60 * 60);
         }
-        cookie.setSecure(true);
         return cookie;
     }
 
