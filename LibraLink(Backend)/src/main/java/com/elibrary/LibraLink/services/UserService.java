@@ -16,22 +16,24 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    //Create User
+    //CREATE USER
     public User addUser(User user){
         return userRepository.save(user);
     }
 
-    //Get User By ID
+    //GET USER BY ID
     public Optional<User> findUserById(Integer id){
         return userRepository.findById(id);
     }
 
-    //Get All Users
+    // GET USER BY EMAIL
+
+    //GET ALL USERS
     public List<User> findAllUsers(){
         return userRepository.findAll();
     }
 
-    //Update User By id
+    //UPDATE USER BY ID
     public User updateUser(User user){
         Optional<User> originalUser = userRepository.findById(user.getId());
 
@@ -48,7 +50,7 @@ public class UserService {
         }
     }
 
-    //Delete User (soft)
+    //DELETE USER (SOFT)
     public void softDeleteUser(Integer id){
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
@@ -61,7 +63,7 @@ public class UserService {
         }
     }
 
-    //Delete User (hard)
+    //DELETE USER (HARD)
     public void permanentDeleteUser(Integer id){
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
