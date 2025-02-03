@@ -87,8 +87,7 @@ public class UserService {
     }
 
     // CHECK PASSWORD
-    public void checkPasswordAndStoreCookie(LoginRequest loginRequest,User user) {
-
+    public String checkPasswordAndStoreCookie(LoginRequest loginRequest,User user) {
 
         if(passwordEncoder.matches(loginRequest.getPassword(),user.getPassword())) {
 
@@ -102,10 +101,12 @@ public class UserService {
             cookieConfig.addTokenToCookie(accessToken, loginRequest.isRememberMe());
 
             // USER TO UPDATE REFRESH TOKEN
-            User userToUpdateRefreshToken = new User();
+            user.setRefresh_token(refreshToken);
+            userRepository.save(user);
 
-            userToUpdateRefreshToken.setRefresh_token(refreshToken);
-
+            return accessToken;
+        } else {
+            return null;
         }
     }
 }
