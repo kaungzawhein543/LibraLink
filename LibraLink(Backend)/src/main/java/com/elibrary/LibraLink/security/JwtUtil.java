@@ -21,13 +21,21 @@ public class JwtUtil {
 
      //GENERATE JWT TOKEN
     public String generate_jwt_token(User user,String token_type) {
+
+        // ACCESS TOKEN TIME
+        long threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
+
+        // REFRESH TOKEN TIME
+        long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+
         Key jwtSecretKey = new SecretKeySpec(jwt_secret_key.getBytes(), SignatureAlgorithm.HS512.getJcaName());
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .claim("id",user.getId())
                 .claim("role",user.getRole_id())
                 .setIssuedAt(new Date())
-                .setExpiration(token_type.equalsIgnoreCase("ACCESS") ? new Date(System.currentTimeMillis() + 24000 + 60 + 60))
+                .setExpiration(token_type.equalsIgnoreCase("ACCESS") ? new Date(System.currentTimeMillis() + threeDaysInMillis)
+                        : new Date(System.currentTimeMillis() + sevenDaysInMillis))
                 .signWith(jwtSecretKey)
                 .compact();
     }

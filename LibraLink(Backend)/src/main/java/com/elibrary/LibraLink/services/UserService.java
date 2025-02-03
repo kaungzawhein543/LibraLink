@@ -85,13 +85,15 @@ public class UserService {
 
     // CHECK PASSWORD
     public void checkPasswordAndStoreCookie(LoginRequest loginRequest,User user) {
+
+
         if(passwordEncoder.matches(loginRequest.getPassword(),user.getPassword())) {
 
             // GENERATE ACCESS TOKEN
-            String accessToken  = jwtUtil.generate_jwt_token(user);
+            String accessToken  = jwtUtil.generate_jwt_token(user, "access");
 
             // GENERATE REFRESH TOKEN
-            String refreshToken = jwtUtil.
+            String refreshToken = jwtUtil.generate_jwt_token(user, "refresh");
         }
     }
 }
