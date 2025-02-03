@@ -35,7 +35,7 @@ public class UserController {
         }else if(!user.get().isStatus()){
             throw new Exception("This Account Is Not Available");
         }else {
-
+            return null;
         }
     }
 }

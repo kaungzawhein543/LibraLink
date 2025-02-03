@@ -50,6 +50,8 @@ public class User {
     private LocalDateTime created_at = LocalDateTime.now();
     @Column(name="theme")
     private String theme = "light";
+    @Column(name="refresh_token")
+    private String refresh_token;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

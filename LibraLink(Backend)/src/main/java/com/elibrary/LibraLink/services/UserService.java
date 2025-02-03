@@ -98,8 +98,14 @@ public class UserService {
             // GENERATE REFRESH TOKEN
             String refreshToken = jwtUtil.generate_jwt_token(user, "refresh");
 
-
+            // SET TOKEN TO COOKIE
             cookieConfig.addTokenToCookie(accessToken, loginRequest.isRememberMe());
+
+            // USER TO UPDATE REFRESH TOKEN
+            User userToUpdateRefreshToken = new User();
+
+            userToUpdateRefreshToken.setRefresh_token(refreshToken);
+
         }
     }
 }

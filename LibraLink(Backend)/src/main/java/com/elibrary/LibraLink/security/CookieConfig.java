@@ -11,7 +11,7 @@ public class CookieConfig {
 
 
     //ADD TOKEN TO COOKIES
-    public Cookie addTokenToCookie(String token, boolean rememberMe) {
+    public void addTokenToCookie(String token, boolean rememberMe) {
         Cookie cookie = new Cookie("jwt",token);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
@@ -19,7 +19,6 @@ public class CookieConfig {
         if(rememberMe) {
             cookie.setMaxAge(30 * 24 * 60 * 60);
         }
-        return cookie;
     }
 
     //REMOVE COOKIE (LOGOUT)
