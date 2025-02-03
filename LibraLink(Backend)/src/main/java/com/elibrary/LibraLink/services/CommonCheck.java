@@ -19,5 +19,12 @@ public class CommonCheck {
         return password.length() >= passwordLength;
     }
 
+    // CHECK PASSWORD FORMAT
+    public boolean checkPasswordFormat(String password) {
+        if (password == null) {
+            return false;
+        }
+        return password.matches(PASSWORD_REGEX);
+    }
 
 }
