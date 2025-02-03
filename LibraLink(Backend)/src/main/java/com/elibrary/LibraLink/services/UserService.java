@@ -1,7 +1,10 @@
 package com.elibrary.LibraLink.services;
 
+import com.elibrary.LibraLink.dtos.LoginRequest;
 import com.elibrary.LibraLink.entities.User;
 import com.elibrary.LibraLink.repositories.UserRepository;
+import com.elibrary.LibraLink.security.JwtUtil;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +14,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     //CREATE USER
@@ -27,6 +34,9 @@ public class UserService {
     }
 
     // GET USER BY EMAIL
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     //GET ALL USERS
     public List<User> findAllUsers(){
@@ -70,6 +80,18 @@ public class UserService {
             userRepository.deleteById(id);
         }else{
             throw new Error("User Not Found With Id "+id);
+        }
+    }
+
+    // CHECK PASSWORD
+    public void checkPasswordAndStoreCookie(LoginRequest loginRequest,User user) {
+        if(passwordEncoder.matches(loginRequest.getPassword(),user.getPassword())) {
+
+            // GENERATE ACCESS TOKEN
+            String accessToken  = jwtUtil.generate_jwt_token(user);
+
+            // GENERATE REFRESH TOKEN
+            String refreshToken = jwtUtil.
         }
     }
 }

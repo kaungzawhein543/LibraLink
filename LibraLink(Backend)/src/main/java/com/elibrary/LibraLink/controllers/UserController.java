@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(value = "/auth")
 @Slf4j
@@ -26,7 +28,14 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
-        User user = userService.findUserById(loginRequest.getEmail());
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
+        Optional<User> user = userService.findByEmail(loginRequest.getEmail());
+        if (user.isEmpty()) {
+            throw new Exception("User Not Found With This Email" + loginRequest.getEmail());
+        }else if(!user.get().isStatus()){
+            throw new Exception("This Account Is Not Available");
+        }else {
+
+        }
     }
 }

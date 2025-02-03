@@ -20,14 +20,14 @@ public class JwtUtil {
      final String jwt_refresh_secret_key = "${spring.jwt.refresh.token.secret.key}";
 
      //GENERATE JWT TOKEN
-    public String generate_jwt_token(User user) {
+    public String generate_jwt_token(User user,String token_type) {
         Key jwtSecretKey = new SecretKeySpec(jwt_secret_key.getBytes(), SignatureAlgorithm.HS512.getJcaName());
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .claim("id",user.getId())
                 .claim("role",user.getRole_id())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 24000 + 60 + 60))
+                .setExpiration(token_type.equalsIgnoreCase("ACCESS") ? new Date(System.currentTimeMillis() + 24000 + 60 + 60))
                 .signWith(jwtSecretKey)
                 .compact();
     }
