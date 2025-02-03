@@ -27,4 +27,8 @@ public class CommonCheck {
         return password.matches(PASSWORD_REGEX);
     }
 
+    // VALIDATE THE PASSWORD
+    public boolean isPasswordValid(String password) {
+        return checkPasswordLength(password) && checkPasswordFormat(password);
+    }
 }
