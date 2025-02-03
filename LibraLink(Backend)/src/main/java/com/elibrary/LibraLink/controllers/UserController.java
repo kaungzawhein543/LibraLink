@@ -1,4 +1,32 @@
 package com.elibrary.LibraLink.controllers;
 
+import com.elibrary.LibraLink.dtos.LoginRequest;
+import com.elibrary.LibraLink.entities.User;
+import com.elibrary.LibraLink.services.UserService;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = "/auth")
+@Slf4j
 public class UserController {
+
+    // CONSTANT VALUES
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+
+    // CONSTRUCTOR
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+        User user = userService.findUserById(loginRequest.getEmail());
+    }
 }
