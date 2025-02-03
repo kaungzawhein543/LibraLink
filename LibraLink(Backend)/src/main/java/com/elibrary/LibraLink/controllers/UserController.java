@@ -1,6 +1,7 @@
 package com.elibrary.LibraLink.controllers;
 
 import com.elibrary.LibraLink.dtos.LoginRequest;
+import com.elibrary.LibraLink.dtos.UserDTO;
 import com.elibrary.LibraLink.entities.User;
 import com.elibrary.LibraLink.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // LOGIN METHOD
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         Optional<User> user = userService.findByEmail(loginRequest.getEmail());
         if (user.isEmpty()) {
@@ -42,6 +44,14 @@ public class UserController {
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
             }
+        }
+    }
+
+    // REGISTER METHOD
+    public ResponseEntity<String> Register(@RequestBody UserDTO userDataFromRequest) throws Exception {
+        Optional<User> userDataFromDb = userService.findByEmail(userDataFromRequest.getEmail());
+        if(userDataFromDb.isPresent()) {
+            throw new Exception("User With That Email is Already Exist"+ userDataFromRequest.getEmail());
         }
     }
 }
