@@ -3,6 +3,7 @@ package com.elibrary.LibraLink.services;
 import com.elibrary.LibraLink.dtos.LoginRequest;
 import com.elibrary.LibraLink.entities.User;
 import com.elibrary.LibraLink.repositories.UserRepository;
+import com.elibrary.LibraLink.security.CookieConfig;
 import com.elibrary.LibraLink.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final CookieConfig cookieConfig;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, CookieConfig cookieConfig){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
+        this.cookieConfig = cookieConfig;
     }
 
     //CREATE USER
@@ -94,6 +97,9 @@ public class UserService {
 
             // GENERATE REFRESH TOKEN
             String refreshToken = jwtUtil.generate_jwt_token(user, "refresh");
+
+
+            cookieConfig.addTokenToCookie(accessToken, loginRequest.isRememberMe());
         }
     }
 }
