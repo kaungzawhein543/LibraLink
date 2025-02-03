@@ -52,6 +52,8 @@ public class UserController {
         Optional<User> userDataFromDb = userService.findByEmail(userDataFromRequest.getEmail());
         if(userDataFromDb.isPresent()) {
             throw new Exception("User With That Email is Already Exist"+ userDataFromRequest.getEmail());
+        } else {
+
         }
     }
 }
