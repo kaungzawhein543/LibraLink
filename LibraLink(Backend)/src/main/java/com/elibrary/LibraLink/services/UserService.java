@@ -14,20 +14,29 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    // CONSTANT VALUES
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final CookieConfig cookieConfig;
+    private final CommonCheck commonCheck;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, CookieConfig cookieConfig){
+    // CONSTRUCTOR
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, CookieConfig cookieConfig, CommonCheck commonCheck){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
         this.cookieConfig = cookieConfig;
+        this.commonCheck = commonCheck;
     }
 
     //CREATE USER
     public User addUser(User user){
+        if (commonCheck.isPasswordValid(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }else {
+            return null;
+        }
         return userRepository.save(user);
     }
 

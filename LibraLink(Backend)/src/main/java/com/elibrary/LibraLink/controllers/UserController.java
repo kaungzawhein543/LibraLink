@@ -6,6 +6,7 @@ import com.elibrary.LibraLink.entities.User;
 import com.elibrary.LibraLink.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,12 +23,12 @@ public class UserController {
 
     // CONSTANT VALUES
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     // CONSTRUCTOR
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     // LOGIN METHOD
@@ -53,7 +54,8 @@ public class UserController {
         if(userDataFromDb.isPresent()) {
             throw new Exception("User With That Email is Already Exist"+ userDataFromRequest.getEmail());
         } else {
-
+            User user = modelMapper.map(userDataFromRequest, User.class);
+            User result = userService.addUser(user);
         }
     }
 }
