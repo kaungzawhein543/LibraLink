@@ -10,9 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -32,6 +30,7 @@ public class UserController {
     }
 
     // LOGIN METHOD
+    @PostMapping("login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         Optional<User> user = userService.findByEmail(loginRequest.getEmail());
         if (user.isEmpty()) {
@@ -49,6 +48,7 @@ public class UserController {
     }
 
     // REGISTER METHOD
+    @PostMapping("/register")
     public ResponseEntity<String> Register(@RequestBody UserDTO userDataFromRequest) throws Exception {
         Optional<User> userDataFromDb = userService.findByEmail(userDataFromRequest.getEmail());
         if(userDataFromDb.isPresent()) {
