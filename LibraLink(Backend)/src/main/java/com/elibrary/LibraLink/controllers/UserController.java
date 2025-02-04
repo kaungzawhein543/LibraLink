@@ -56,7 +56,11 @@ public class UserController {
         } else {
             User user = modelMapper.map(userDataFromRequest, User.class);
             User result = userService.addUser(user);
-            if (result != null )
+            if (result != null ) {
+                return ResponseEntity.ok("Register Successfully!");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please Enter Strong Password");
+            }
         }
     }
 }
