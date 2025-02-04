@@ -4,6 +4,7 @@ import com.elibrary.LibraLink.entities.User;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +17,12 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-     final String jwt_secret_key = "${spring.jwt.secret.key}";
-     final String jwt_access_secret_key = "${spring.jwt.access.token.secret.key}";
-     final String jwt_refresh_secret_key = "${spring.jwt.refresh.token.secret.key}";
+     @Value("${spring.jwt.secret.key}")
+     private String jwt_secret_key;
+     @Value("${spring.jwt.access.token.secret.key}")
+     private String jwt_access_secret_key;
+     @Value("${spring.jwt.access.token.secret.key}")
+     private String jwt_refresh_secret_key;
 
      //GENERATE JWT TOKEN
     public String generate_jwt_token(User user,String token_type) {

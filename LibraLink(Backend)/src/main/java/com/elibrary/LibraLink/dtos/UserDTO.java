@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,9 +16,10 @@ public class UserDTO {
     private UUID id;
     private String name;
     private String username;
+    private String password;
     private String email;
     private boolean status;
-    private LocalDateTime DOB;
+    private LocalDate date_of_birth;
     private String profile_photo_path;
     private String notification_device_id;
     private boolean email_notification_permission;

@@ -35,7 +35,7 @@ public class User {
     @Column(name="status")
     private boolean status;
     @Column(name="date_of_birth",nullable = false)
-    private LocalDate DOB;
+    private LocalDate date_of_birth;
     @Column(name="profile_photo_path")
     private String profile_photo_path;
     @Column(name="notification_device_id")
