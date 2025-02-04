@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table  (name="error_logs")
+@Table(name="error_logs")
 public class ErrorLogs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="error_message" ,nullable = false)
+    @Column(name="error_message" ,nullable = false,columnDefinition = "TEXT")
     private String error_message;
     @Column(name="error_type")
     private String error_type;

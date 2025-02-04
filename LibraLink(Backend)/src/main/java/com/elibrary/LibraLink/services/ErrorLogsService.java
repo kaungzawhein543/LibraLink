@@ -58,6 +58,8 @@ public class ErrorLogsService {
         //CHECK STATUS CODE WITH "exceptionStatusCodeMap" METHOD
         String statusCode = exceptionStatusCodeMap.getOrDefault(exception.getClass(),"500");
 
+        System.out.println(statusCode);
+        System.out.println(exception.getMessage());
         ErrorLogs errorLogs = new ErrorLogs();
         errorLogs.setError_message(exception.getMessage());
         errorLogs.setError_happen_at(LocalDateTime.now());
