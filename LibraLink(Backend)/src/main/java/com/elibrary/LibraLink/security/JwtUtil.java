@@ -4,6 +4,7 @@ import com.elibrary.LibraLink.entities.User;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -132,6 +133,23 @@ public class JwtUtil {
         return user;
     }
 
+    // VALIDATE THE JWT TOKEN
+    public boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+    }
+
+    // VALIDATE THE TOKEN
+    private boolean isTokenExpired(String token) {
+        String decryptedToken = decryptAccessToken(token);
+
+        return Jwts.parser()
+                .setSigningKey(jwt_secret_key)
+                .parseClaimsJws(decryptedToken)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
+    }
 
 
 }
