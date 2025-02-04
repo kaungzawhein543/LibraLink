@@ -33,7 +33,7 @@ public class User {
     @Column(name="password",nullable = false)
     private String password;
     @Column(name="status")
-    private boolean status;
+    private boolean status = true;
     @Column(name="date_of_birth",nullable = false)
     private LocalDate date_of_birth;
     @Column(name="profile_photo_path")

@@ -8,6 +8,7 @@ import com.elibrary.LibraLink.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public class UserService {
     //CREATE USER
     public User addUser(User user){
         if (commonCheck.isPasswordValid(user.getPassword())) {
+            user.setCreated_at(LocalDateTime.now());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }else {
             return null;
