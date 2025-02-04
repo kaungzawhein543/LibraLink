@@ -56,6 +56,7 @@ public class UserController {
         } else {
             User user = modelMapper.map(userDataFromRequest, User.class);
             User result = userService.addUser(user);
+            if (result != null )
         }
     }
 }
