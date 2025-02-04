@@ -23,10 +23,11 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for stateless APIs
+                .csrf(AbstractHttpConfigurer::disable)  // DISABLE CSRF FOR STATELESS APIS
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .anyRequest().permitAll() // Require authentication for all requests
+                                .anyRequest().authenticated() // REQUIRE AUTHENTICATION FOR ALL REQUESTS
+                                .requestMatchers("/auth/**").permitAll() // ACCESS FOR ONLY LOGIN AND REGISTER
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling
