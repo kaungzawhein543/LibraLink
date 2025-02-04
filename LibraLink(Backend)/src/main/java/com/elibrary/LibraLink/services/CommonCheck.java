@@ -1,14 +1,17 @@
 package com.elibrary.LibraLink.services;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CommonCheck {
 
     // CONSTANT VALUES
-    private final int passwordLength;
+    private static final Integer passwordLength = 10;
     private static final String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).+$";
 
     // CONSTRUCTOR
-    public CommonCheck(int passwordLength) {
-        this.passwordLength = passwordLength;
+    public CommonCheck() {
+
     }
 
     // CHECK PASSWORD LENGTH

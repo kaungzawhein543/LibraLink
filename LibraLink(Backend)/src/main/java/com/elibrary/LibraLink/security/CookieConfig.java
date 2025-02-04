@@ -4,7 +4,9 @@ package com.elibrary.LibraLink.security;
 import com.elibrary.LibraLink.dtos.LoginRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class CookieConfig {
 
     private final int cookieExpirationDate = 30 * 24 * 60 * 60;
