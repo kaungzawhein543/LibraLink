@@ -31,8 +31,8 @@ public class SecurityConfig  {
                 .csrf(AbstractHttpConfigurer::disable)  // DISABLE CSRF FOR STATELESS APIS
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .anyRequest().authenticated() // REQUIRE AUTHENTICATION FOR ALL REQUESTS
                                 .requestMatchers("/auth/**").permitAll() // ACCESS FOR ONLY LOGIN AND REGISTER
+                                .anyRequest().authenticated() // REQUIRE AUTHENTICATION FOR ALL REQUESTS
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling ->
