@@ -21,7 +21,7 @@ public class JwtUtil {
      private String jwt_secret_key;
      @Value("${spring.jwt.access.token.secret.key}")
      private String jwt_access_secret_key;
-     @Value("${spring.jwt.access.token.secret.key}")
+     @Value("${spring.jwt.refresh.token.secret.key}")
      private String jwt_refresh_secret_key;
 
      //GENERATE JWT TOKEN
@@ -69,7 +69,7 @@ public class JwtUtil {
 
             return Base64.getEncoder().encodeToString(encryptedBytes);
         }catch (Exception e) {
-            throw new RuntimeException("Error while encrypting JWT");
+            throw new RuntimeException("Error while encrypting JWT Access Token" + e.getMessage());
         }
     }
 
@@ -86,7 +86,7 @@ public class JwtUtil {
             byte[] decryptedBytes = cipher.doFinal(decodedBytes);
             return new String(decryptedBytes);
         }catch (Exception e){
-            throw new RuntimeException("Error while decrypting JWT");
+            throw new RuntimeException("Error while decrypting JWT Access Token" + e.getMessage());
         }
     }
 
@@ -101,7 +101,7 @@ public class JwtUtil {
             byte[] encryptedBytes =  cipher.doFinal(token.getBytes());
             return Base64.getEncoder().encodeToString(encryptedBytes);
         }catch(Exception e) {
-            throw new RuntimeException("Error while encrypting JWT");
+            throw new RuntimeException("Error while encrypting JWT Refresh Token");
         }
     }
 
@@ -118,7 +118,7 @@ public class JwtUtil {
             byte[] decryptedBytes = cipher.doFinal(decodedBytes);
             return new String(decryptedBytes);
         }catch (Exception e){
-            throw new RuntimeException("Error while decrypting JWT");
+            throw new RuntimeException("Error while decrypting JWT Refresh Token");
         }
     }
 
