@@ -108,11 +108,17 @@ public class UserService {
             // GENERATE REFRESH TOKEN
             String refreshToken = jwtUtil.generate_jwt_token(user, "refresh");
 
+            // ENCRYPT ACCESS TOKEN
+            String encryptedAccessToken = jwtUtil.encryptAccessToken(accessToken);
+
+            // ENCRYPT REFRESH TOKEN
+            String  encryptedRefreshToken = jwtUtil.encryptRefreshToken(refreshToken);
+
             // SET TOKEN TO COOKIE
             cookieConfig.addTokenToCookie(accessToken, loginRequest.isRememberMe());
 
             // USER TO UPDATE REFRESH TOKEN
-            user.setRefresh_token(refreshToken);
+            user.setRefresh_token(encryptedRefreshToken);
             userRepository.save(user);
 
             return accessToken;
