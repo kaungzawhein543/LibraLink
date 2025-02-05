@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,9 +24,9 @@ public class UserRefreshTokens {
     @Column(name="refresh_token")
     private String token;
     @Column(name="expired_at")
-    private Timestamp expired_at;
+    private LocalDateTime expired_at;
     @Column(name="created_at")
-    private Timestamp created_at;
+    private LocalDateTime created_at;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;

@@ -13,9 +13,19 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class UserRefreshTokenService implements UserRefreshTokenRepository {
+
+    // CONSTANTS VARIABLES
+    private final UserRefreshTokenRepository userRefreshTokenRepository;
+
+    // CONSTRUCTOR
+    public UserRefreshTokenService(UserRefreshTokenRepository userRefreshTokenRepository) {
+        this.userRefreshTokenRepository = userRefreshTokenRepository;
+    }
+
+
     @Override
     public <S extends UserRefreshTokens> S save(S entity) {
-        return null;
+        return userRefreshTokenRepository.save(entity);
     }
 
     @Override

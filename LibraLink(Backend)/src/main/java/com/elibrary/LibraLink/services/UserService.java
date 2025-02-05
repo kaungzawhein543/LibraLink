@@ -1,7 +1,10 @@
 package com.elibrary.LibraLink.services;
 
 import com.elibrary.LibraLink.dtos.LoginRequest;
+import com.elibrary.LibraLink.dtos.UserRefreshTokenDTO;
 import com.elibrary.LibraLink.entities.User;
+import com.elibrary.LibraLink.entities.UserRefreshTokens;
+import com.elibrary.LibraLink.repositories.UserRefreshTokenRepository;
 import com.elibrary.LibraLink.repositories.UserRepository;
 import com.elibrary.LibraLink.security.CookieConfig;
 import com.elibrary.LibraLink.security.JwtUtil;
@@ -21,14 +24,16 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final CookieConfig cookieConfig;
     private final CommonCheck commonCheck;
+    private final UserRefreshTokenRepository userRefreshTokenRepository;
 
     // CONSTRUCTOR
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, CookieConfig cookieConfig, CommonCheck commonCheck){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, CookieConfig cookieConfig, CommonCheck commonCheck, UserRefreshTokenRepository userRefreshTokenRepository){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
         this.cookieConfig = cookieConfig;
         this.commonCheck = commonCheck;
+        this.userRefreshTokenRepository = userRefreshTokenRepository;
     }
 
     //CREATE USER
@@ -117,8 +122,11 @@ public class UserService {
             // SET TOKEN TO COOKIE
             cookieConfig.addTokenToCookie(accessToken, loginRequest.isRememberMe());
 
+            // USER REFRESH TOKEN CLASS
+            UserRefreshTokens userRefreshTokens = new UserRefreshTokens();
+
             // USER TO UPDATE REFRESH TOKEN
-            user.setRefresh_token(encryptedRefreshToken);
+            userRefreshTokenRepository.save();
             userRepository.save(user);
 
             return encryptedAccessToken;
