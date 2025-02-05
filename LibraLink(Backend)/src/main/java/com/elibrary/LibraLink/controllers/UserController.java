@@ -4,6 +4,7 @@ import com.elibrary.LibraLink.dtos.LoginRequest;
 import com.elibrary.LibraLink.dtos.UserDTO;
 import com.elibrary.LibraLink.entities.User;
 import com.elibrary.LibraLink.services.UserService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -40,7 +41,7 @@ public class UserController {
         }else {
             String result = userService.checkPasswordAndStoreCookie(loginRequest,user.get());
             if (result != null) {
-                return ResponseEntity.ok("Login Successfully!" + result);
+                return ResponseEntity.ok("Login Successfully! : " + result);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
             }
