@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_refresh_tokens")
