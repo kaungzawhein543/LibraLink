@@ -121,7 +121,7 @@ public class UserService {
             user.setRefresh_token(encryptedRefreshToken);
             userRepository.save(user);
 
-            return accessToken;
+            return encryptedAccessToken;
         } else {
             return null;
         }
