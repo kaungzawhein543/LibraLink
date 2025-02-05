@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -103,7 +104,7 @@ public class UserService {
     }
 
     // CHECK PASSWORD
-    public String checkPasswordAndStoreCookie(LoginRequest loginRequest,User user) {
+    public String checkPasswordAndStoreCookie(LoginRequest loginRequest, User user, UUID device_id) {
 
         if(passwordEncoder.matches(loginRequest.getPassword(),user.getPassword())) {
 
@@ -124,9 +125,14 @@ public class UserService {
 
             // USER REFRESH TOKEN CLASS
             UserRefreshTokens userRefreshTokens = new UserRefreshTokens();
+            userRefreshTokens.setDevice_id(device_id);
+            userRefreshTokens.setExpired_at(LocalDateTime.now().plusDays(7));
+            userRefreshTokens.setCreated_at(LocalDateTime.now());
+            userRefreshTokens.setToken(refreshToken);
+            userRefreshTokens.setUser(user);
 
             // USER TO UPDATE REFRESH TOKEN
-            userRefreshTokenRepository.save();
+            userRefreshTokenRepository.save(userRefreshTokens);
             userRepository.save(user);
 
             return encryptedAccessToken;

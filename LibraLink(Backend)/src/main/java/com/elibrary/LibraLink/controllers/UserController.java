@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -31,15 +32,15 @@ public class UserController {
     }
 
     // LOGIN METHOD
-    @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
+    @PostMapping("login/{device_id}")
+    public ResponseEntity<String> login(@RequestParam("/device_id") UUID device_id, @RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         Optional<User> user = userService.findByEmail(loginRequest.getEmail());
         if (user.isEmpty()) {
             throw new Exception("User Not Found With This Email" + loginRequest.getEmail());
         }else if(!user.get().isStatus()){
             throw new Exception("This Account Is Not Available");
         }else {
-            String result = userService.checkPasswordAndStoreCookie(loginRequest,user.get());
+            String result = userService.checkPasswordAndStoreCookie(loginRequest,user.get(), device_id);
             if (result != null) {
                 return ResponseEntity.ok("Login Successfully! : " + result);
             } else {
