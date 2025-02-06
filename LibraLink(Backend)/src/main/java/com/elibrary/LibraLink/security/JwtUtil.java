@@ -33,7 +33,9 @@ public class JwtUtil {
         // REFRESH TOKEN TIME
         long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
 
-        Key jwtSecretKey = new SecretKeySpec(jwt_secret_key.getBytes(), SignatureAlgorithm.HS512.getJcaName());
+        byte[] secretBytes = jwt_secret_key.getBytes();
+        Key signingKey = new SecretKeySpec(secretBytes, SignatureAlgorithm.HS512.getJcaName());
+
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .claim("id",user.getId())
@@ -41,7 +43,7 @@ public class JwtUtil {
                 .setIssuedAt(new Date())
                 .setExpiration(token_type.equalsIgnoreCase("ACCESS") ? new Date(System.currentTimeMillis() + threeDaysInMillis)
                         : new Date(System.currentTimeMillis() + sevenDaysInMillis))
-                .signWith(jwtSecretKey)
+                .signWith(signingKey)
                 .compact();
     }
 
@@ -155,13 +157,13 @@ public class JwtUtil {
     private boolean isTokenExpired(String token) {
         String decryptedToken = decryptAccessToken(token);
 
+        System.out.println(decryptedToken);
+
         return Jwts.parser()
-                .setSigningKey(jwt_secret_key)
+                .setSigningKey(jwt_secret_key.getBytes())
                 .parseClaimsJws(decryptedToken)
                 .getBody()
                 .getExpiration()
                 .before(new Date());
     }
-
-
 }
