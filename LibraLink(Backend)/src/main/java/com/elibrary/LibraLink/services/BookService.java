@@ -61,7 +61,7 @@ public class BookService {
     }
 
     //Get Book By ID
-    public Optional<Book> findBookById(UUID id){
+    public Optional<Book> findBookById(String id){
         return bookRepository.findById(id);
     }
 
@@ -89,7 +89,7 @@ public class BookService {
     }
 
     //Delete Book (soft)
-    public void softDeleteBook(UUID id){
+    public void softDeleteBook(String id){
         Optional<Book> book = bookRepository.findById(id);
         if(book.isPresent()){
             Book bookForDle = book.get();
@@ -102,7 +102,7 @@ public class BookService {
     }
 
     //Delete Book (hard)
-    public void permanentDeleteBook(UUID id){
+    public void permanentDeleteBook(String id){
         Optional<Book> book = bookRepository.findById(id);
         if(book.isPresent()){
             bookRepository.deleteById(id);
