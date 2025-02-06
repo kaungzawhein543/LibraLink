@@ -5,8 +5,16 @@ import com.elibrary.LibraLink.entities.Book;
 import com.elibrary.LibraLink.entities.BooksHasCategories;
 import com.elibrary.LibraLink.repositories.BookHasCategoriesRepository;
 import com.elibrary.LibraLink.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +24,12 @@ import java.util.stream.Collectors;
 @Service
 public class BookService {
 
+    // CONSTANT VALUES
     private final BookRepository bookRepository;
     private final BookHasCategoriesRepository bookHasCategoriesRepository;
+
+    @Value(value="${file.upload-dir}")
+    private String upload_dir;
 
     public BookService(BookRepository bookRepository, BookHasCategoriesRepository bookHasCategoriesRepository){
         this.bookRepository = bookRepository;
@@ -25,7 +37,26 @@ public class BookService {
     }
 
     //Create Book
-    public Book addBook(Book book){
+    public Book addBook(Book book, MultipartFile file) throws IllegalArgumentException, IOException {
+        // STORE BOOK FILE IN SERVER PATH
+        if(file.isEmpty()) {
+            throw new IllegalArgumentException("File is not valid");
+        }
+        try {
+            // ENSURE THE DIRECTORY EXISTS
+            Path path = Paths.get(upload_dir);
+            if(!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+
+            // Save the file to the upload directory
+            String filePath = upload_dir + file.getOriginalFilename();
+            file.transferTo(new File(filePath));
+
+            book.setBook_path(filePath);
+        } catch (IOException e) {
+            throw new IOException("File uploading was failed" + e.getMessage());
+        }
         return bookRepository.save(book);
     }
 

@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,9 +32,9 @@ public class BookController {
     }
 
     //ADD BOOK
-    @PostMapping("add")
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
-        return new ResponseEntity<>(bookService.addBook(book), HttpStatusCode.valueOf(200));
+    @PostMapping(value="add", consumes = "multipart/form-data")
+    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @RequestBody Book book) throws IOException {
+        return new ResponseEntity<>(bookService.addBook(book,file), HttpStatusCode.valueOf(200));
     }
 
     //GET BOOK BY ID
