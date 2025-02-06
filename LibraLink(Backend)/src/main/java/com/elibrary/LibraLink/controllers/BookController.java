@@ -33,7 +33,7 @@ public class BookController {
 
     //ADD BOOK
     @PostMapping(value="add", consumes = "multipart/form-data")
-    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @RequestBody Book book) throws IOException {
+    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @RequestParam("book") Book book) throws IOException {
         return new ResponseEntity<>(bookService.addBook(book,file), HttpStatusCode.valueOf(200));
     }
 
