@@ -104,7 +104,7 @@ public class UserService {
     }
 
     // CHECK PASSWORD
-    public String checkPasswordAndStoreCookie(LoginRequest loginRequest, User user, UUID device_id) {
+    public String checkPasswordAndStoreCookie(LoginRequest loginRequest, User user, String device_id) {
 
         if(passwordEncoder.matches(loginRequest.getPassword(),user.getPassword())) {
 
@@ -125,7 +125,7 @@ public class UserService {
 
             // USER REFRESH TOKEN CLASS
             UserRefreshTokens userRefreshTokens = new UserRefreshTokens();
-            userRefreshTokens.setDevice_id(device_id);
+            userRefreshTokens.setDevice_id(UUID.fromString(device_id));
             userRefreshTokens.setExpired_at(LocalDateTime.now().plusDays(7));
             userRefreshTokens.setCreated_at(LocalDateTime.now());
             userRefreshTokens.setToken(refreshToken);

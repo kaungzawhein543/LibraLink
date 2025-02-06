@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/auth")
+@RequestMapping(value = "/authentication")
 @Slf4j
 public class UserController {
 
@@ -33,7 +33,7 @@ public class UserController {
 
     // LOGIN METHOD
     @PostMapping("login/{device_id}")
-    public ResponseEntity<String> login(@RequestParam("/device_id") UUID device_id, @RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
+    public ResponseEntity<String> login(@PathVariable String device_id, @RequestBody LoginRequest loginRequest, HttpServletResponse response) throws Exception {
         Optional<User> user = userService.findByEmail(loginRequest.getEmail());
         if (user.isEmpty()) {
             throw new Exception("User Not Found With This Email" + loginRequest.getEmail());
