@@ -60,7 +60,9 @@ public class JwtUtil {
     //ENCRYPT THE ACCESS TOKEN AND RETURN ENCODED TOKEN
     public String encryptAccessToken(String token) {
         try{
-            SecretKeySpec secretKeySpec = new SecretKeySpec(jwt_access_secret_key.getBytes(), "AES");
+            byte[] decodedKey = Base64.getDecoder().decode(jwt_access_secret_key);
+
+            SecretKeySpec secretKeySpec = new SecretKeySpec(decodedKey, "AES");
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec);
@@ -76,7 +78,9 @@ public class JwtUtil {
     //DECRYPT THE ACCESS TOKEN AND RETURN DECODED TOKEN
     public String decryptAccessToken(String token) {
         try{
-            SecretKeySpec secretKeySpec = new SecretKeySpec(jwt_access_secret_key.getBytes(),"AES");
+            byte[] decodedKey = Base64.getDecoder().decode(jwt_access_secret_key);
+
+            SecretKeySpec secretKeySpec = new SecretKeySpec(decodedKey,"AES");
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE,secretKeySpec);
@@ -93,7 +97,9 @@ public class JwtUtil {
     //ENCRYPT THE REFRESH TOKEN AND RETURN ENCODED TOKEN
     public String encryptRefreshToken(String token) {
         try {
-            SecretKeySpec secretKeySpec = new SecretKeySpec(jwt_refresh_secret_key.getBytes(),"AES");
+            byte[] decodedKey = Base64.getDecoder().decode(jwt_refresh_secret_key);
+
+            SecretKeySpec secretKeySpec = new SecretKeySpec(decodedKey,"AES");
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec);
@@ -101,14 +107,16 @@ public class JwtUtil {
             byte[] encryptedBytes =  cipher.doFinal(token.getBytes());
             return Base64.getEncoder().encodeToString(encryptedBytes);
         }catch(Exception e) {
-            throw new RuntimeException("Error while encrypting JWT Refresh Token");
+            throw new RuntimeException("Error while encrypting JWT Refresh Token" + e.getMessage());
         }
     }
 
     //DECRYPT THE REFRESH TOKEN AND RETURN DECODED TOKEN
     public String decryptRefreshToken(String token) {
         try{
-            SecretKeySpec secretKeySpec = new SecretKeySpec(jwt_refresh_secret_key.getBytes(),"AES");
+            byte[] decodedKey = Base64.getDecoder().decode(jwt_refresh_secret_key);
+
+            SecretKeySpec secretKeySpec = new SecretKeySpec(decodedKey,"AES");
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE,secretKeySpec);
@@ -118,7 +126,7 @@ public class JwtUtil {
             byte[] decryptedBytes = cipher.doFinal(decodedBytes);
             return new String(decryptedBytes);
         }catch (Exception e){
-            throw new RuntimeException("Error while decrypting JWT Refresh Token");
+            throw new RuntimeException("Error while decrypting JWT Refresh Token" + e.getMessage());
         }
     }
 
