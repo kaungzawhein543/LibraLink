@@ -32,8 +32,13 @@ public class BookController {
     }
 
     //ADD BOOK
-    @PostMapping(value="add")
-    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @ModelAttribute Book book,@RequestParam("userId") String userId) throws IOException {
+    @PostMapping(value="add", consumes = "multipart/form-data")
+    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @ModelAttribute BookDTO bookDTO,@RequestParam("userId") String userId) throws IOException {
+        // Map DTO to Book entity
+        Book book = new Book();
+        book.setName(bookDTO.getName());
+        book.setPages(bookDTO.getPages());
+        book.setStatus(bookDTO.());
         return new ResponseEntity<>(bookService.addBook(book,file,userId), HttpStatusCode.valueOf(200));
     }
 
@@ -57,7 +62,7 @@ public class BookController {
     }
 
     //UPDATE CATEGORY(SOFT)
-    @PutMapping("update")
+    @PutMapping(value="update")
     public ResponseEntity<Book> updateBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookService.updateBook(book),HttpStatusCode.valueOf(200));
     }

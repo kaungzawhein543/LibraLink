@@ -19,4 +19,5 @@ public class BookDTO {
     private String preview_photo_path;
     private String book_path;
     private int social_share_count;
+    private boolean status;
 }
