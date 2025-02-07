@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,23 +38,30 @@ public class BookService {
     }
 
     //Create Book
-    public Book addBook(Book book, MultipartFile file) throws IllegalArgumentException, IOException {
+    public Book addBook(Book book, MultipartFile file,String userId) throws IllegalArgumentException, IOException {
         // STORE BOOK FILE IN SERVER PATH
         if(file.isEmpty()) {
             throw new IllegalArgumentException("File is not valid");
         }
         try {
-            // ENSURE THE DIRECTORY EXISTS
+            // Ensure the directory exists
             Path path = Paths.get(upload_dir);
-            if(!Files.exists(path)) {
+            if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
 
-            // Save the file to the upload directory
-            String filePath = upload_dir + file.getOriginalFilename();
-            file.transferTo(new File(filePath));
+            String originalFIleName = file.getOriginalFilename();
+            assert originalFIleName != null;
+            String fileExtension = originalFIleName.substring(originalFIleName.lastIndexOf("."));
 
-            book.setBook_path(filePath);
+            String newFileName = "user_" + userId + "_" + UUID.randomUUID() + fileExtension;
+
+            Path filePath = path.resolve(newFileName);
+
+            // Save the file to the upload directory
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            book.setBook_path(filePath.toString());
         } catch (IOException e) {
             throw new IOException("File uploading was failed" + e.getMessage());
         }
