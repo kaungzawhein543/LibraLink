@@ -33,12 +33,10 @@ public class BookController {
 
     //ADD BOOK
     @PostMapping(value="add", consumes = "multipart/form-data")
-    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @ModelAttribute BookDTO bookDTO,@RequestParam("userId") String userId) throws IOException {
+    public ResponseEntity<Book> addBook(@RequestPart("file") MultipartFile file, @RequestPart("bookDTO") BookDTO bookDTO,@RequestParam("userId") String userId) throws IOException {
+        System.out.println(bookDTO);
         // Map DTO to Book entity
-        Book book = new Book();
-        book.setName(bookDTO.getName());
-        book.setPages(bookDTO.getPages());
-        book.setStatus(bookDTO.());
+        Book book = modelMapper.map(bookDTO,Book.class);
         return new ResponseEntity<>(bookService.addBook(book,file,userId), HttpStatusCode.valueOf(200));
     }
 
