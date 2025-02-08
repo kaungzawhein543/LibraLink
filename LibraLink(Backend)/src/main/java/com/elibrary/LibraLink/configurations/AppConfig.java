@@ -21,10 +21,4 @@ public class AppConfig {
         return Dotenv.configure().load();  // Loads the .env file
     }
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper;
-    }
 }
