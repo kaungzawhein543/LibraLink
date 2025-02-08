@@ -6,9 +6,11 @@ import com.elibrary.LibraLink.dtos.CategoryDTO;
 import com.elibrary.LibraLink.entities.Book;
 import com.elibrary.LibraLink.entities.User;
 import com.elibrary.LibraLink.services.BookService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +34,14 @@ public class BookController {
     }
 
     //ADD BOOK
-    @PostMapping(value="add", consumes = "multipart/form-data")
-    public ResponseEntity<Book> addBook(@RequestPart("file") MultipartFile file, @RequestPart("bookDTO") BookDTO bookDTO,@RequestParam("userId") String userId) throws IOException {
-        System.out.println(bookDTO);
+    @PostMapping(value="add",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @RequestParam("bookDTOJson") String bookDTOJson,@RequestParam("userId") String userId) throws IOException {
+
+        System.out.println(bookDTOJson);
+
+        ObjectMapper objectmapper = new ObjectMapper();
+        BookDTO bookDTO = objectmapper.readValue(bookDTOJson, BookDTO.class);
+
         // Map DTO to Book entity
         Book book = modelMapper.map(bookDTO,Book.class);
         return new ResponseEntity<>(bookService.addBook(book,file,userId), HttpStatusCode.valueOf(200));

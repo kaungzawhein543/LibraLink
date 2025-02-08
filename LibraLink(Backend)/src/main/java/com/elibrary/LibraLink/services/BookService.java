@@ -39,6 +39,9 @@ public class BookService {
 
     //Create Book
     public Book addBook(Book book, MultipartFile file,String userId) throws IllegalArgumentException, IOException {
+
+        UUID bookId = UUID.randomUUID();
+
         // STORE BOOK FILE IN SERVER PATH
         if(file.isEmpty()) {
             throw new IllegalArgumentException("File is not valid");
@@ -62,6 +65,7 @@ public class BookService {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             book.setBook_path(filePath.toString());
+
         } catch (IOException e) {
             throw new IOException("File uploading was failed" + e.getMessage());
         }
