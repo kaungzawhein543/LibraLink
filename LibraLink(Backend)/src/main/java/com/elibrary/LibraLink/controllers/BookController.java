@@ -35,7 +35,7 @@ public class BookController {
 
     //ADD BOOK
     @PostMapping(value="add",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @RequestParam("bookDTOJson") String bookDTOJson,@RequestParam("userId") String userId) throws IOException {
+    public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @RequestParam("bookDTOJson") String bookDTOJson,@RequestParam("userId") String userId) throws Exception {
 
         ObjectMapper objectmapper = new ObjectMapper();
         BookDTO bookDTO = objectmapper.readValue(bookDTOJson, BookDTO.class);
