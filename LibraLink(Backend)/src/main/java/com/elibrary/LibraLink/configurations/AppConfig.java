@@ -1,6 +1,8 @@
 package com.elibrary.LibraLink.configurations;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -17,5 +19,12 @@ public class AppConfig {
     @Bean
     public Dotenv dotenv() {
         return Dotenv.configure().load();  // Loads the .env file
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
     }
 }

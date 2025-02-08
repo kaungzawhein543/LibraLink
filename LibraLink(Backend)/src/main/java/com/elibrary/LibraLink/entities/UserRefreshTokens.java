@@ -21,7 +21,7 @@ public class UserRefreshTokens {
     private int id;
     @Column(name="device_id")
     private UUID device_id;
-    @Column(name="refresh_token")
+    @Column(name="refresh_token", columnDefinition = "TEXT")
     private String token;
     @Column(name="expired_at")
     private LocalDateTime expired_at;

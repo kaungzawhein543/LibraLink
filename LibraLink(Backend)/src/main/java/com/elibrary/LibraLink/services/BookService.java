@@ -57,7 +57,7 @@ public class BookService {
             assert originalFIleName != null;
             String fileExtension = originalFIleName.substring(originalFIleName.lastIndexOf("."));
 
-            String newFileName = "user_" + userId + "_" + UUID.randomUUID() + fileExtension;
+            String newFileName = "user_" + userId + "_" + bookId + fileExtension;
 
             Path filePath = path.resolve(newFileName);
 
@@ -65,7 +65,6 @@ public class BookService {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             book.setBook_path(filePath.toString());
-
         } catch (IOException e) {
             throw new IOException("File uploading was failed" + e.getMessage());
         }
@@ -73,7 +72,7 @@ public class BookService {
     }
 
     //Get Book By ID
-    public Optional<Book> findBookById(String id){
+    public Optional<Book> findBookById(UUID id){
         return bookRepository.findById(id);
     }
 
@@ -101,7 +100,7 @@ public class BookService {
     }
 
     //Delete Book (soft)
-    public void softDeleteBook(String id){
+    public void softDeleteBook(UUID id){
         Optional<Book> book = bookRepository.findById(id);
         if(book.isPresent()){
             Book bookForDle = book.get();
@@ -114,7 +113,7 @@ public class BookService {
     }
 
     //Delete Book (hard)
-    public void permanentDeleteBook(String id){
+    public void permanentDeleteBook(UUID id){
         Optional<Book> book = bookRepository.findById(id);
         if(book.isPresent()){
             bookRepository.deleteById(id);

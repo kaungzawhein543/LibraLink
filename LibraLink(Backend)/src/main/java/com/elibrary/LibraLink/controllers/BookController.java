@@ -49,7 +49,7 @@ public class BookController {
 
     //GET BOOK BY ID
     @GetMapping("get/{id}")
-    public ResponseEntity<BookDTO> getBookById(@PathVariable String id) {
+    public ResponseEntity<BookDTO> getBookById(@PathVariable UUID id) {
         return bookService.findBookById(id)
                 .map(book -> modelMapper.map(book , BookDTO.class))
                 .map(ResponseEntity::ok)
@@ -80,7 +80,7 @@ public class BookController {
 
     //DELETE BOOK(SOFT)
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteBook(@PathVariable String id){
+    public ResponseEntity<String> deleteBook(@PathVariable UUID id){
         bookService.softDeleteBook(id);
         return ResponseEntity.ok("Delete Book Successfully.");
     }

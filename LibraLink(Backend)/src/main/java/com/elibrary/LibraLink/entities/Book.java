@@ -22,7 +22,7 @@ public class Book {
     @GeneratedValue(generator = "UUID")
     @UuidGenerator
     @Column(name="id")
-    private String id;
+    private UUID id;
     @Column(name="name")
     private String name;
     @Column(name="created_at")

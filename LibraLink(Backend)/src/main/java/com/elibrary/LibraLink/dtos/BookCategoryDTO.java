@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookCategoryDTO {
-    private String bookId;
+    private UUID bookId;
     private String bookName;
     private LocalDateTime created_at;
     private boolean status;
