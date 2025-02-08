@@ -156,9 +156,6 @@ public class JwtUtil {
     // VALIDATE THE TOKEN
     private boolean isTokenExpired(String token) {
         String decryptedToken = decryptAccessToken(token);
-
-        System.out.println(decryptedToken);
-
         return Jwts.parser()
                 .setSigningKey(jwt_secret_key.getBytes())
                 .parseClaimsJws(decryptedToken)
