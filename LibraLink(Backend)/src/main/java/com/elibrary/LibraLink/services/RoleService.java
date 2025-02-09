@@ -18,22 +18,22 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    //Create Role
+    // CREATE ROLE
     public Role addRole(Role role){
         return roleRepository.save(role);
     }
 
-    //Get Role By ID
+    // GET ROLE BY ID
     public Optional<Role> findRoleById(Integer id){
         return roleRepository.findById(id);
     }
 
-    //Get All Roles
+    // GET All ROLES
     public List<Role> findAllRoles(){
         return roleRepository.findAll();
     }
 
-    //Update Role By id
+    //UPDATE ROLE BY ID
     public Role updateRole(Role role){
         Optional<Role> originalRole = roleRepository.findById(role.getId());
 
@@ -47,7 +47,7 @@ public class RoleService {
         }
     }
 
-    //Delete Role (soft)
+    // DELETE ROLE (SOFT)
     public void softDeleteRole(Integer id){
         Optional<Role> role = roleRepository.findById(id);
         if(role.isPresent()){

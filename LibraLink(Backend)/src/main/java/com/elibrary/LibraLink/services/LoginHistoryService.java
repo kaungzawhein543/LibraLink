@@ -19,23 +19,23 @@ public class LoginHistoryService {
         this.loginHistoryRepository = loginHistoryRepository;
     }
 
-    //Create LoginHistory
+    // CREATE LOGIN HISTORY
     public LoginHistory addLoginHistory(LoginHistory loginHistory){
         return loginHistoryRepository.save(loginHistory);
     }
 
-    //Get LoginHistory By ID
+    // GET LOGIN HISTORY BY ID
     public Optional<LoginHistory> findLoginHistoryById(UUID id){
         return loginHistoryRepository.findById(id);
     }
 
-    //Get All LoginHistories
+    // GET ALL LOGIN HISTORIES
     public List<LoginHistory> findAllLoginHistories(){
         return loginHistoryRepository.findAll();
     }
 
 
-    //Delete LoginHistory (soft)
+    // DELETE LOGIN HISTORIES (SOFT)
     public void softDeleteLoginHistory(UUID id){
         Optional<LoginHistory> loginHistory = loginHistoryRepository.findById(id);
         if(loginHistory.isPresent()){
@@ -48,7 +48,7 @@ public class LoginHistoryService {
         }
     }
 
-    //Delete LoginHistory (hard)
+    // DELETE LOGIN HISTORIES (HARD)
     public void permanentDeleteLoginHistory(UUID id){
         Optional<LoginHistory> loginHistory = loginHistoryRepository.findById(id);
         if(loginHistory.isPresent()){

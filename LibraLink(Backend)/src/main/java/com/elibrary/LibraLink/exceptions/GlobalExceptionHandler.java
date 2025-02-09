@@ -102,7 +102,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    //EXCEPTION (TO CATCH ALL EXCEPTION)
+    // EXCEPTION (TO CATCH ALL EXCEPTION)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAllException(Exception ex, WebRequest request) {
         errorLogsService.addErrorLogs(ex);

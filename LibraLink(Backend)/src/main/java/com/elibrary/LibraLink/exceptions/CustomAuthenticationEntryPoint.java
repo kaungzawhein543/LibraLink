@@ -27,6 +27,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         this.errorLogsService = errorLogsService;
     }
 
+    // CUSTOMIZED THE EXCEPTIONS
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         ErrorResponse errorResponse = new ErrorResponse(

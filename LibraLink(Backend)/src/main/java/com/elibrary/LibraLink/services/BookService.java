@@ -38,7 +38,7 @@ public class BookService {
         this.fileManagingService = fileManagingService;
     }
 
-    //Create Book
+    // CREATE BOOK
     public Book addBook(Book book, MultipartFile file,String userId) throws Exception {
 
         // GENERATE UUID FOR SAVING FILE AND BOOK
@@ -58,17 +58,17 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    //Get Book By ID
+    // GET BOOK BY ID
     public Optional<Book> findBookById(UUID id){
         return bookRepository.findById(id);
     }
 
-    //Get All Books
+    // GET ALL BOOKS
     public List<Book> getAllBooks(){
         return bookRepository.findAll();
     }
 
-    //Update Book By ID
+    // UPDATE BOOK BY ID
     public Book updateBook(Book updatedBook){
         Optional<Book> bookBeforeUpdate = bookRepository.findById(updatedBook.getId());
 
@@ -86,7 +86,7 @@ public class BookService {
         }
     }
 
-    //Delete Book (soft)
+    // DELETE BOOK (SOFT)
     public void softDeleteBook(UUID id){
         Optional<Book> book = bookRepository.findById(id);
         if(book.isPresent()){
@@ -99,7 +99,7 @@ public class BookService {
         }
     }
 
-    //Delete Book (hard)
+    // DELETE BOOK (HARD)
     public void permanentDeleteBook(UUID id){
         Optional<Book> book = bookRepository.findById(id);
         if(book.isPresent()){
@@ -109,7 +109,7 @@ public class BookService {
         }
     }
 
-    //Find Books By Category
+    // FIND BOOKS BY CATEGORY
     public List<Book> findBooksByCategory(Integer id){
         List<BooksHasCategories> bookIdsAndCategoryIDs = bookHasCategoriesRepository.findByCategory_id(id);
         if(!bookIdsAndCategoryIDs.isEmpty()){

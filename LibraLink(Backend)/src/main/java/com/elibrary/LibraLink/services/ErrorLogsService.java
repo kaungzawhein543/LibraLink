@@ -57,7 +57,7 @@ public class ErrorLogsService {
                 Map.entry(InsufficientAuthenticationException.class, "401")
         );
 
-        //CHECK STATUS CODE WITH "exceptionStatusCodeMap" METHOD
+        // CHECK STATUS CODE WITH "exceptionStatusCodeMap" METHOD
         String statusCode = exceptionStatusCodeMap.getOrDefault(exception.getClass(),"500");
 
         ErrorLogs errorLogs = new ErrorLogs();
@@ -72,17 +72,17 @@ public class ErrorLogsService {
         return errorLogsRepository.save(errorLogs);
     }
 
-    //GET ERROR LOGS BY ID
+    // GET ERROR LOGS BY ID
     public Optional<ErrorLogs> findErrorLogsById(Integer id){
         return errorLogsRepository.findById(id);
     }
 
-    //GET ERROR LOGS
+    // GET ERROR LOGS
     public List<ErrorLogs> findAllErrorLogs(){
         return errorLogsRepository.findAll();
     }
 
-    //UPDATE ERROR LOGS BY ID
+    // UPDATE ERROR LOGS BY ID
     public ErrorLogs updateErrorLogs(ErrorLogs errorLogs){
         Optional<ErrorLogs> originalErrorLogs = errorLogsRepository.findById(errorLogs.getId());
 
@@ -97,7 +97,7 @@ public class ErrorLogsService {
         }
     }
 
-    //DELETE ERROR LOGS (SOFT)
+    // DELETE ERROR LOGS (SOFT)
     public void softDeleteErrorLogs(Integer id){
         Optional<ErrorLogs> errorLogs = errorLogsRepository.findById(id);
         if(errorLogs.isPresent()){
@@ -110,7 +110,7 @@ public class ErrorLogsService {
         }
     }
 
-    //DELETE ERROR LOGS (HARD)   { I don't know this method need or not just write for ready when it's need }
+    // DELETE ERROR LOGS (HARD)   { I don't know this method need or not just write for ready when it's need }
     public void permanentDeleteErrorLogs(Integer id){
         Optional<ErrorLogs> errorLogs = errorLogsRepository.findById(id);
         if(errorLogs.isPresent()){
@@ -120,7 +120,7 @@ public class ErrorLogsService {
         }
     }
 
-    //GET STACK TRACE OF THE ERROR
+    // GET STACK TRACE OF THE ERROR
     private String getStackTrace(Exception exception){
         StringBuilder stackTrace = new StringBuilder();
         for(StackTraceElement element : exception.getStackTrace()){

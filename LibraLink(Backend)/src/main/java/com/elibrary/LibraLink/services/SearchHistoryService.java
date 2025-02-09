@@ -19,23 +19,23 @@ public class SearchHistoryService {
         this.searchHistoryRepository = searchHistoryRepository;
     }
 
-    //Create SearchHistory
+    // CREATE SEARCH HISTORY
     public SearchHistory addSearchHistory(SearchHistory searchHistory){
         return searchHistoryRepository.save(searchHistory);
     }
 
-    //Get SearchHistory By ID
+    // GET SEARCH HISTORY BY ID
     public Optional<SearchHistory> findSearchHistoryById(Integer id){
         return searchHistoryRepository.findById(id);
     }
 
-    //Get All SearchHistories
+    // GET ALL SEARCH HISTORIES
     public List<SearchHistory> findAllSearchHistories(){
         return searchHistoryRepository.findAll();
     }
 
 
-    //Delete SearchHistory (soft)
+    // DELETE SEARCH HISTORIES (SOFT)
     public void softDeleteSearchHistory(Integer id){
         Optional<SearchHistory> searchHistory = searchHistoryRepository.findById(id);
         if(searchHistory.isPresent()){
@@ -48,7 +48,7 @@ public class SearchHistoryService {
         }
     }
 
-    //Delete SearchHistory (hard)
+    //DELETE SEARCH HISTORY (HARD)
     public void permanentDeleteSearchHistory(Integer id){
         Optional<SearchHistory> searchHistory = searchHistoryRepository.findById(id);
         if(searchHistory.isPresent()){

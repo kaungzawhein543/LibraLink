@@ -19,22 +19,22 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
     }
 
-    //Create Notification
+    // CREATE NOTIFICATION
     public Notification addNotification(Notification notification){
         return notificationRepository.save(notification);
     }
 
-    //Get Notification By ID
+    // GET NOTIFICATION BY ID
     public Optional<Notification> findNotificationById(Integer id){
         return notificationRepository.findById(id);
     }
 
-    //Get All Notifications
+    // GET ALL NOTIFICATIONS
     public List<Notification> findAllNotifications(){
         return notificationRepository.findAll();
     }
 
-    //Update Notification By id
+    // UPDATE NOTIFICATIONS BY ID
     public Notification updateNotification(Notification notification){
         Optional<Notification> originalNotification = notificationRepository.findById(notification.getId());
 
@@ -50,7 +50,7 @@ public class NotificationService {
         }
     }
 
-    //Delete Notification (soft)
+    // DELETE NOTIFICATION (SOFT)
     public void softDeleteNotification(Integer id){
         Optional<Notification> notification = notificationRepository.findById(id);
         if(notification.isPresent()){
@@ -63,7 +63,7 @@ public class NotificationService {
         }
     }
 
-    //Delete Notification (hard)
+    // DELETE NOTIFICATION (HARD)
     public void permanentDeleteNotification(Integer id){
         Optional<Notification> notification = notificationRepository.findById(id);
         if(notification.isPresent()){

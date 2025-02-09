@@ -20,22 +20,22 @@ public class PermissionService {
         this.permissionRepository = permissionRepository;
     }
 
-    //Create Permission
+    //CREATE PERMISSION
     public Permission addPermission(Permission permission){
         return permissionRepository.save(permission);
     }
 
-    //Get Permission By ID
+    // GET PERMISSION By ID
     public Optional<Permission> findPermissionById(Integer id){
         return permissionRepository.findById(id);
     }
 
-    //Get All Permissions
+    // GET ALL PERMISSIONS
     public List<Permission> findAllPermissions(){
         return permissionRepository.findAll();
     }
 
-    //Update Permission By id
+    // UPDATE PERMISSION BY ID
     public Permission updatePermission(Permission permission){
         Optional<Permission> originalPermission = permissionRepository.findById(permission.getId());
 
@@ -50,7 +50,7 @@ public class PermissionService {
         }
     }
 
-    //Delete Permission (soft)
+    // DELETE PERMISSION (SOFT)
     public void softDeletePermission(Integer id){
         Optional<Permission> permission = permissionRepository.findById(id);
         if(permission.isPresent()){

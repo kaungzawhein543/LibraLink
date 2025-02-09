@@ -14,9 +14,11 @@ import java.util.UUID;
 @Service
 public class FileManagingService {
 
+    // CONSTANT VALUES
     @Value(value="${file.upload-dir}")
     private String upload_dir;
 
+    // SAVE FILE TO SERVER
     public String saveFileTOServer(MultipartFile file, String userId,UUID book_UUID) throws Exception {
         try {
             // ENSURE THE DIR EXIST

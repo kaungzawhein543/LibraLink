@@ -20,22 +20,22 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    //Create Review
+    // CREATE REVIEW
     public Review addReview(Review review){
         return reviewRepository.save(review);
     }
 
-    //Get Review By ID
+    // GET REVIEW BY ID
     public Optional<Review> findReviewById(Integer id){
         return reviewRepository.findById(id);
     }
 
-    //Get All Reviews
+    // GET ALL REVIEWS
     public List<Review> findAllReviews(){
         return reviewRepository.findAll();
     }
 
-    //Update Review By id
+    // UPDATE REVIEWS BY ID
     public Review updateReview(Review review){
         Optional<Review> originalReview = reviewRepository.findById(review.getId());
 
@@ -50,7 +50,7 @@ public class ReviewService {
         }
     }
 
-    //Delete Review (soft)
+    // DELETE REVIEW (SOFT)
     public void softDeleteReview(Integer id){
         Optional<Review> review = reviewRepository.findById(id);
         if(review.isPresent()){

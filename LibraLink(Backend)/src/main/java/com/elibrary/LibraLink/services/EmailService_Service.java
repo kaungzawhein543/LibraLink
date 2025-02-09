@@ -20,22 +20,22 @@ public class EmailService_Service {
         this.emailServiceRepository = emailServiceRepository;
     }
 
-    //Create EmailService
+    // CREATE EMAIL SERVICE
     public EmailService addEmailService(EmailService emailService){
         return emailServiceRepository.save(emailService);
     }
 
-    //Get EmailService By ID
+    // GET EMAIL SERVICE BY ID
     public Optional<EmailService> findEmailServiceById(Integer id){
         return emailServiceRepository.findById(id);
     }
 
-    //Get All EmailServices
+    // GET ALL EMAIL SERVICES
     public List<EmailService> findAllEmailServices(){
         return emailServiceRepository.findAll();
     }
 
-    //Update EmailService By id
+    // UPDATE EMAIL SERVICES BY ID
     public EmailService updateEmailService(EmailService emailService){
         Optional<EmailService> originalEmailService = emailServiceRepository.findById(emailService.getId());
 
@@ -56,7 +56,7 @@ public class EmailService_Service {
         }
     }
 
-    //Delete EmailService (soft)
+    // DELETE EMAIL SERVICE (SOFT)
     public void softDeleteEmailService(Integer id){
         Optional<EmailService> emailService = emailServiceRepository.findById(id);
         if(emailService.isPresent()){

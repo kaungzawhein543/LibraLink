@@ -47,7 +47,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    //EXTRACT SUBJECT(USERNAME) FROM TOKEN
+    // EXTRACT SUBJECT(USERNAME) FROM TOKEN
     public String extractUsername(String token) {
 
         String decryptedToken = decryptAccessToken(token);
@@ -59,7 +59,7 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    //ENCRYPT THE ACCESS TOKEN AND RETURN ENCODED TOKEN
+    // ENCRYPT THE ACCESS TOKEN AND RETURN ENCODED TOKEN
     public String encryptAccessToken(String token) {
         try{
             byte[] decodedKey = Base64.getDecoder().decode(jwt_access_secret_key);
@@ -77,7 +77,7 @@ public class JwtUtil {
         }
     }
 
-    //DECRYPT THE ACCESS TOKEN AND RETURN DECODED TOKEN
+    // DECRYPT THE ACCESS TOKEN AND RETURN DECODED TOKEN
     public String decryptAccessToken(String token) {
         try{
             byte[] decodedKey = Base64.getDecoder().decode(jwt_access_secret_key);
@@ -96,7 +96,7 @@ public class JwtUtil {
         }
     }
 
-    //ENCRYPT THE REFRESH TOKEN AND RETURN ENCODED TOKEN
+    // ENCRYPT THE REFRESH TOKEN AND RETURN ENCODED TOKEN
     public String encryptRefreshToken(String token) {
         try {
             byte[] decodedKey = Base64.getDecoder().decode(jwt_refresh_secret_key);
@@ -113,7 +113,7 @@ public class JwtUtil {
         }
     }
 
-    //DECRYPT THE REFRESH TOKEN AND RETURN DECODED TOKEN
+    // DECRYPT THE REFRESH TOKEN AND RETURN DECODED TOKEN
     public String decryptRefreshToken(String token) {
         try{
             byte[] decodedKey = Base64.getDecoder().decode(jwt_refresh_secret_key);
@@ -132,7 +132,7 @@ public class JwtUtil {
         }
     }
 
-    //GET USER DETAIL FROM TOKEN IN COOKIE
+    // GET USER DETAIL FROM TOKEN IN COOKIE
     public User getUserDetailFromToken(String token) {
         User user = new User();
         String decryptedToken = decryptAccessToken(token);

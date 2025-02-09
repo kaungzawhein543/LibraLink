@@ -20,22 +20,22 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    //Create Category
+    // CREATE CATEGORY
     public Category addCategory(Category category){
         return categoryRepository.save(category);
     }
 
-    //Get Category By ID
+    // GET CATEGORY BY ID
     public Optional<Category> findCategoryById(Integer id){
         return categoryRepository.findById(id);
     }
 
-    //Get All Categories
+    // GET ALL CATEGORIES
     public List<Category> findAllCategories(){
         return categoryRepository.findAll();
     }
 
-    //Update Category By id
+    // UPDATE Category By id
     public Category updateCategory(Category category){
         Optional<Category> originalCategory = categoryRepository.findById(category.getId());
 
@@ -50,7 +50,7 @@ public class CategoryService {
         }
     }
 
-    //Delete Category (soft)
+    // DELETE CATEGORY (SOFT)
     public void softDeleteCategory(Integer id){
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isPresent()){
@@ -63,7 +63,7 @@ public class CategoryService {
         }
     }
 
-    //Delete Category (hard)
+    // DELETE  CATEGORY (HARD)
     public void permanentDeleteCategory(Integer id){
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isPresent()){

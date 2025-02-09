@@ -18,21 +18,23 @@ import java.util.stream.Collectors;
 @RequestMapping("api/v1/emailService")
 public class EmailServiceController {
 
+    // CONSTANT VALUES
     private final EmailService_Service emailServiceService;
     private final ModelMapper modelMapper;
 
+    // CONSTRUCTOR
     public EmailServiceController(EmailService_Service emailServiceService, ModelMapper modelMapper){
         this.emailServiceService = emailServiceService;
         this.modelMapper = modelMapper;
     }
 
-    // ADD Email Service
+    // ADD EMAIL SERVICE
     @PostMapping("add")
     public ResponseEntity<EmailService> addEmailService(@RequestBody EmailService emailService) {
         return new ResponseEntity<>(emailServiceService.addEmailService(emailService), HttpStatusCode.valueOf(200));
     }
 
-    // GET Email Service BY ID
+    // GET EMAIl SERVICE BY ID
     @GetMapping("get/{id}")
     public ResponseEntity<EmailServiceDTO> getEmailServiceById(@PathVariable Integer id) {
         return emailServiceService.findEmailServiceById(id)
