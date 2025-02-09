@@ -17,16 +17,18 @@ import java.util.stream.Collectors;
 @RequestMapping("api/v1/exceptions")
 public class ErrorLogsController {
 
+    // CONSTANTS VALUES
     private final ErrorLogsService errorLogsService;
     private final ModelMapper modelMapper;
 
+    // CONSTRUCTORS
     public ErrorLogsController(ErrorLogsService errorLogsService, ModelMapper modelMapper) {
         this.errorLogsService = errorLogsService;
         this.modelMapper = modelMapper;
     }
 
 
-    //GET ALL ERROR LOGS
+    // GET ALL ERROR LOGS
     @GetMapping("/getAll")
     public ResponseEntity<List<ErrorLogsDTO>> getAllErrorLogs(){
         List<ErrorLogsDTO> errorLogsDTOS = errorLogsService.findAllErrorLogs()
@@ -36,13 +38,13 @@ public class ErrorLogsController {
         return ResponseEntity.ok(errorLogsDTOS);
     }   
 
-    //UPDATE ERROR LOG STATUS OR ADDITIONAL INFO
+    // UPDATE ERROR LOG STATUS OR ADDITIONAL INFO
     @PutMapping("/update")
     public ResponseEntity<ErrorLogs> updateStatusOrInfo(@RequestBody ErrorLogs errorLogs){
         return new ResponseEntity<>(errorLogsService.updateErrorLogs(errorLogs), HttpStatusCode.valueOf(200));
     }
 
-    //REMOVE ERROR WITH SOFT DELETE
+    // REMOVE ERROR WITH SOFT DELETE
     @PutMapping("/remove/{id}")
     public ResponseEntity<String> removeErrorLogs(@PathVariable Integer id){
         errorLogsService.softDeleteErrorLogs(id);

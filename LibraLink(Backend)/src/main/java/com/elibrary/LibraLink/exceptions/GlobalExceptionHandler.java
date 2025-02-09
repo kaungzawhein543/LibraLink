@@ -14,8 +14,10 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    // CONSTANT VALUES
     private final ErrorLogsService errorLogsService;
 
+    // CONSTRUCTOR
     public GlobalExceptionHandler(ErrorLogsService errorLogsService) {
         this.errorLogsService = errorLogsService;
     }

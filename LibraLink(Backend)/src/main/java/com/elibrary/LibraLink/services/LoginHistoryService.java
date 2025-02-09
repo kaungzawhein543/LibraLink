@@ -11,8 +11,10 @@ import java.util.UUID;
 @Service
 public class LoginHistoryService {
 
+    // CONSTANT VALUES
     private final LoginHistoryRepository loginHistoryRepository;
 
+    // CONSTRUCTOR
     public LoginHistoryService(LoginHistoryRepository loginHistoryRepository){
         this.loginHistoryRepository = loginHistoryRepository;
     }

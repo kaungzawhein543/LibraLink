@@ -17,8 +17,10 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+    // CONSTANT VALUES
     private final UserRepository userRepository;
 
+    // CONSTRUCTOR
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

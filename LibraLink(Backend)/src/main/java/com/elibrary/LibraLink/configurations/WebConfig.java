@@ -28,4 +28,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .setCacheControl(CacheControl.maxAge(Duration.ofDays(3600)).cachePublic());
     }
 
-    }
+}

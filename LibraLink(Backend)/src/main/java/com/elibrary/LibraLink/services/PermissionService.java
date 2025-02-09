@@ -12,8 +12,10 @@ import java.util.Optional;
 @Service
 public class PermissionService {
 
+    // CONSTANT VALUES
     private final PermissionRepository permissionRepository;
 
+    // CONSTRUCTOR
     public PermissionService(PermissionRepository permissionRepository){
         this.permissionRepository = permissionRepository;
     }

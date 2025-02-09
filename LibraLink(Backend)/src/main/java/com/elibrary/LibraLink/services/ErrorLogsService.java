@@ -26,8 +26,10 @@ import java.util.concurrent.TimeoutException;
 @Service
 public class ErrorLogsService {
 
+    // CONSTANT VALUES
     private final ErrorLogsRepository errorLogsRepository;
 
+    // CONSTRUCTOR
     public ErrorLogsService(ErrorLogsRepository errorLogsRepository){
         this.errorLogsRepository = errorLogsRepository;
     }

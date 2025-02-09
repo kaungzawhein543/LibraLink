@@ -12,8 +12,10 @@ import java.util.UUID;
 @Service
 public class CategoryService {
 
+    // CONSTANT VALUES
     private final CategoryRepository categoryRepository;
 
+    // CONSTRUCTOR
     public CategoryService(CategoryRepository categoryRepository){
         this.categoryRepository = categoryRepository;
     }

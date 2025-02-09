@@ -10,8 +10,10 @@ import java.util.Optional;
 @Service
 public class RoleService {
 
+    // CONSTANT VALUES
     private final RoleRepository roleRepository;
 
+    // CONSTRUCTOR
     public RoleService(RoleRepository roleRepository){
         this.roleRepository = roleRepository;
     }

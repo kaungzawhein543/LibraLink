@@ -26,13 +26,13 @@ public class EmailServiceController {
         this.modelMapper = modelMapper;
     }
 
-    //ADD Email Service
+    // ADD Email Service
     @PostMapping("add")
     public ResponseEntity<EmailService> addEmailService(@RequestBody EmailService emailService) {
         return new ResponseEntity<>(emailServiceService.addEmailService(emailService), HttpStatusCode.valueOf(200));
     }
 
-    //GET Email Service BY ID
+    // GET Email Service BY ID
     @GetMapping("get/{id}")
     public ResponseEntity<EmailServiceDTO> getEmailServiceById(@PathVariable Integer id) {
         return emailServiceService.findEmailServiceById(id)
@@ -41,7 +41,7 @@ public class EmailServiceController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    //GET ALL EMAIL SERVICES
+    // GET ALL EMAIL SERVICES
     @GetMapping("getAll")
     public ResponseEntity<List<EmailServiceDTO>> getAllEmailServices() {
         List<EmailServiceDTO> emailServiceDTOS = emailServiceService.findAllEmailServices()
@@ -51,13 +51,13 @@ public class EmailServiceController {
         return ResponseEntity.ok(emailServiceDTOS);
     }
 
-    //UPDATE EMAIL SERVICES
+    // UPDATE EMAIL SERVICES
     @PutMapping("update")
     public ResponseEntity<EmailService> updateEmailService(@RequestBody EmailService emailService) {
         return new ResponseEntity<>(emailServiceService.updateEmailService(emailService),HttpStatusCode.valueOf(200));
     }
 
-    //DELETE EMAIL SERVICE(SOFT)
+    // DELETE EMAIL SERVICE(SOFT)
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteEmailService(@PathVariable Integer id){
         emailServiceService.softDeleteEmailService(id);

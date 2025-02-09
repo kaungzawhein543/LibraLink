@@ -25,15 +25,17 @@ import java.util.stream.Collectors;
 @RequestMapping("api/v1/book")
 public class BookController {
 
+    // CONSTANT VALUES
     private final BookService bookService;
     private final ModelMapper modelMapper;
 
+    // CONSTRUCTORS
     public BookController(BookService bookService, ModelMapper modelMapper){
         this.bookService = bookService;
         this.modelMapper = modelMapper;
     }
 
-    //ADD BOOK
+    // ADD BOOK
     @PostMapping(value="add",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Book> addBook(@RequestParam("file") MultipartFile file, @RequestParam("bookDTOJson") String bookDTOJson,@RequestParam("userId") String userId) throws Exception {
 
@@ -45,7 +47,7 @@ public class BookController {
         return new ResponseEntity<>(bookService.addBook(book,file,userId), HttpStatusCode.valueOf(200));
     }
 
-    //GET BOOK BY ID
+    // GET BOOK BY ID
     @GetMapping("get/{id}")
     public ResponseEntity<BookDTO> getBookById(@PathVariable UUID id) {
         return bookService.findBookById(id)
@@ -54,7 +56,7 @@ public class BookController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    //GET ALL BOOKS
+    // GET ALL BOOKS
     @GetMapping("getAll")
     public ResponseEntity<List<BookDTO>> getAllBooks() {
         List<BookDTO>  bookDTOS = bookService.getAllBooks()
@@ -64,19 +66,19 @@ public class BookController {
         return  ResponseEntity.ok(bookDTOS);
     }
 
-    //UPDATE CATEGORY(SOFT)
+    // UPDATE CATEGORY(SOFT)
     @PutMapping(value="update")
     public ResponseEntity<Book> updateBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookService.updateBook(book),HttpStatusCode.valueOf(200));
     }
 
-    //GET BOOK BY CATEGORY
+    // GET BOOK BY CATEGORY
     @GetMapping("category/{id}")
     public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable Integer id){
         return ResponseEntity.ok(bookService.findBooksByCategory(id));
     }
 
-    //DELETE BOOK(SOFT)
+    // DELETE BOOK(SOFT)
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable UUID id){
         bookService.softDeleteBook(id);

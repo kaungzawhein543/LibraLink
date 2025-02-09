@@ -12,8 +12,10 @@ import java.util.Optional;
 @Service
 public class ReviewService {
 
+    // CONSTANT VALUES
     private final ReviewRepository reviewRepository;
 
+    // CONSTRUCTOR
     public ReviewService(ReviewRepository reviewRepository){
         this.reviewRepository = reviewRepository;
     }

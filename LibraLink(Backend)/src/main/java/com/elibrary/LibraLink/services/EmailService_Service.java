@@ -12,8 +12,10 @@ import java.util.Optional;
 @Service
 public class EmailService_Service {
 
+    // CONSTANT VALUES
     private final EmailServiceRepository emailServiceRepository;
 
+    // CONSTRUCTOR
     public EmailService_Service(EmailServiceRepository emailServiceRepository){
         this.emailServiceRepository = emailServiceRepository;
     }

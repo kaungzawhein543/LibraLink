@@ -17,10 +17,11 @@ import java.time.LocalDateTime;
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint  {
 
-
+    // CONSTANT VALUES
     private final ObjectMapper objectMapper;
     private final ErrorLogsService errorLogsService;
 
+    // CONSTRUCTORS
     public CustomAuthenticationEntryPoint(ObjectMapper objectMapper, ErrorLogsService errorLogsService) {
         this.objectMapper = objectMapper;
         this.errorLogsService = errorLogsService;

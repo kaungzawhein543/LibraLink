@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // CONSTANT VALUES
     private static final Logger LOGGER = Logger.getLogger(SecurityConfig.class.getName());
 
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;

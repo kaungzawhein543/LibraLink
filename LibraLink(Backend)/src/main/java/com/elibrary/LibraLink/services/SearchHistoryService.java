@@ -11,8 +11,10 @@ import java.util.Optional;
 @Service
 public class SearchHistoryService {
 
+    // CONSTANT VALUES
     private final SearchHistoryRepository searchHistoryRepository;
 
+    // CONSTRUCTOR
     public SearchHistoryService(SearchHistoryRepository searchHistoryRepository){
         this.searchHistoryRepository = searchHistoryRepository;
     }

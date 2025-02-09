@@ -11,8 +11,10 @@ import java.util.Optional;
 @Service
 public class NotificationService {
 
+    // CONSTANT VALUES
     private final NotificationRepository notificationRepository;
 
+    // CONSTRUCTOR
     public NotificationService(NotificationRepository notificationRepository){
         this.notificationRepository = notificationRepository;
     }

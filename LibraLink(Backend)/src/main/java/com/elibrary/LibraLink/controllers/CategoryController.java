@@ -19,20 +19,22 @@ import java.util.stream.Collectors;
 @RequestMapping("api/v1/category")
 public class CategoryController {
 
+    // CONSTANT VALUES
     private final CategoryService categoryService;
     private final ModelMapper modelMapper;
 
+    // CONSTRUCTOR
     public CategoryController(CategoryService categoryService, ModelMapper modelMapper){
         this.categoryService = categoryService;
         this.modelMapper = modelMapper;
     }
 
-    //ADD CATEGORY
+    // ADD CATEGORY
     @PostMapping("add")
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         return new ResponseEntity<>(categoryService.addCategory(category), HttpStatusCode.valueOf(200));
     }
-    //GET CATEGORY BY ID
+    // GET CATEGORY BY ID
     @GetMapping("get/{id}")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Integer id) {
         return categoryService.findCategoryById(id)
@@ -42,7 +44,7 @@ public class CategoryController {
     }
 
 
-    //GET ALL CATEGORIES
+    // GET ALL CATEGORIES
     @GetMapping("getAll")
     public ResponseEntity<List<CategoryDTO>> getAllCategories() {
         List<CategoryDTO> categoryDTOS = categoryService.findAllCategories()
@@ -52,13 +54,13 @@ public class CategoryController {
         return ResponseEntity.ok(categoryDTOS);
     }
 
-    //UPDATE CATEGORY
+    // UPDATE CATEGORY
     @PutMapping("update")
     public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
         return new ResponseEntity<>(categoryService.updateCategory(category),HttpStatusCode.valueOf(200));
     }
 
-    //DELETE CATEGORY(SOFT)
+    // DELETE CATEGORY(SOFT)
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Integer id){
         categoryService.softDeleteCategory(id);
