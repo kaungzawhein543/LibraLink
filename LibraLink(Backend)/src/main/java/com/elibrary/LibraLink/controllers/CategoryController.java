@@ -34,6 +34,7 @@ public class CategoryController {
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         return new ResponseEntity<>(categoryService.addCategory(category), HttpStatusCode.valueOf(200));
     }
+
     // GET CATEGORY BY ID
     @GetMapping("get/{id}")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Integer id) {
@@ -42,7 +43,6 @@ public class CategoryController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-
 
     // GET ALL CATEGORIES
     @GetMapping("getAll")
