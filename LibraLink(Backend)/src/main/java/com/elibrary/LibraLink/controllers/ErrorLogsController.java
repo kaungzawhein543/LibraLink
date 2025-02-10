@@ -27,7 +27,6 @@ public class ErrorLogsController {
         this.modelMapper = modelMapper;
     }
 
-
     // GET ALL ERROR LOGS
     @GetMapping("/getAll")
     public ResponseEntity<List<ErrorLogsDTO>> getAllErrorLogs(){
@@ -45,7 +44,7 @@ public class ErrorLogsController {
     }
 
     // REMOVE ERROR WITH SOFT DELETE
-    @PutMapping("/remove/{id}")
+    @DeleteMapping("/remove/{id}")
     public ResponseEntity<String> removeErrorLogs(@PathVariable Integer id){
         errorLogsService.softDeleteErrorLogs(id);
         return ResponseEntity.ok("Remove Error Log Successfully");

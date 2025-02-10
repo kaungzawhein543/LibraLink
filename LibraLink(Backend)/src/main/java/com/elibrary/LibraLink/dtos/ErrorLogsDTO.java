@@ -15,6 +15,7 @@ public class ErrorLogsDTO {
     private String error_type;
     private String error_path;
     private String status_code;
+    private boolean fix_status;
     private LocalDateTime error_happen_at;
     private String additional_info;
 }
