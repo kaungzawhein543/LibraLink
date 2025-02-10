@@ -23,7 +23,7 @@ public class EmailServiceController {
     private final ModelMapper modelMapper;
 
     // CONSTRUCTOR
-    public EmailServiceController(EmailService_Service emailServiceService, ModelMapper modelMapper){
+    public EmailServiceController(EmailService_Service emailServiceService, ModelMapper modelMapper) {
         this.emailServiceService = emailServiceService;
         this.modelMapper = modelMapper;
     }
@@ -61,7 +61,7 @@ public class EmailServiceController {
 
     // DELETE EMAIL SERVICE(SOFT)
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteEmailService(@PathVariable Integer id){
+    public ResponseEntity<String> deleteEmailService(@PathVariable Integer id) {
         emailServiceService.softDeleteEmailService(id);
         return ResponseEntity.ok("Delete Email Service Successfully.");
     }
